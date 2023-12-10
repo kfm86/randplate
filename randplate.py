@@ -9,6 +9,13 @@ import logging as lg
 import randplate as rp
 
 
+# TODO:
+# - Main task
+# - tests
+# - documentation
+
+
+
 def main():
     parser = argparse.ArgumentParser(
         prog="randomiser",
@@ -20,19 +27,21 @@ def main():
 
     rp.utils.init_log(args.log)
 
+    # 1. Read in input files
     plate = rp.Plate(args.plate)
     plate.print()
 
     drug_list = rp.DrugList(args.drug_list)
     drug_list.print()
 
-    targets = drug_list.drugs.primary_target.value_counts()
-    msg = f"\n{rp.utils.print_sep()}\nUsing the following primary target mechanisms:\n{targets}\n"
-    lg.info(msg)
+    # 2. Calculate random distributions of each mechanism
+    rp.utils.calc_dist(plate, drug_list)
 
-    controls = drug_list.drugs.query("primary_target == 'Control'")
-    msg = f"Using {len(controls)} controls"
-    lg.debug(msg)
+
+
+    # 3. Turn into histograms
+
+    # 4. Print/save output
 
 
 
