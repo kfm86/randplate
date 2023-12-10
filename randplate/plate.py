@@ -35,8 +35,6 @@ class Plate:
 
 
     def print(self, level=lg.DEBUG):
-        lg.log(level, rp.utils.print_sep())
-        lg.log(level, "Plate layout:")
-        lg.log(level, self.plate)
-        lg.log(level, rp.utils.print_sep())
+        msg = f"\n{rp.utils.print_sep()}\nPlate layout:\n{self.plate}\n{rp.utils.print_sep()}"
+        lg.log(level, msg)
 

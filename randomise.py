@@ -27,13 +27,12 @@ def main():
     drug_list.print()
 
     targets = drug_list.drugs.primary_target.value_counts()
-    lg.info(rp.utils.print_sep())
-    lg.info(f"Using the following primary target mechanisms:")
-    lg.info(f"{targets}\n")
+    msg = f"\n{rp.utils.print_sep()}\nUsing the following primary target mechanisms:\n{targets}\n"
+    lg.info(msg)
 
     controls = drug_list.drugs.query("primary_target == 'Control'")
-    lg.debug(rp.utils.print_sep())
-    lg.debug(f"Using {len(controls)} controls")
+    msg = f"Using {len(controls)} controls"
+    lg.debug(msg)
 
 
 

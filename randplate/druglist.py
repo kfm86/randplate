@@ -8,10 +8,8 @@ class DrugList:
         self.drugs = pd.read_csv(filename, delimiter=";")
 
     def print(self, level=lg.DEBUG):
-        lg.log(level, rp.utils.print_sep())
-        lg.log(level, "Assigning drugs:")
-        lg.log(level, self.drugs)
-        lg.log(level, rp.utils.print_sep())
+        msg = f"\n{rp.utils.print_sep()}\nAssigning drugs:\n{self.drugs}\n{rp.utils.print_sep()}"
+        lg.log(level, msg)
 
 
 
