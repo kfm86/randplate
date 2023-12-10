@@ -1,0 +1,385 @@
+﻿Pubchem_Compound_ID;Drug name;Molar Mass [g/mol];Solvent;New_stock_conc (mM);Medchem ID;Medchem Rack Name;Rack Position;primary_target;secondary_target;group;Plate;n;dilution
+3385;5-FU;130.08;DMSO;20;HY-90006;FK00226951;G11;DNA;RNA;approved;L23;5;1
+46220502;Abemaciclib;506.59;DMSO;10;HY-16297A;FK00226951;H10;Cyclin-dependent kinase 4;Cyclin-dependent kinase 6;approved, investigational;L23;5;1
+71226662;Acalabrutinib;465.51;DMSO;3;HY-17600;FK00231611;B3;Tyrosine-protein kinase BTK;NA;approved, investigational;L23;5;1
+10184653;Afatinib;485.94;DMSO;20;HY-10261;FK00226951;C10;Epidermal growth factor receptor;Receptor tyrosine-protein kinase erbB-2;approved;L23;5;1
+46843057;Afuresertib;427.3;DMSO-warm;3;HY-15727;FK00226951;E10;NA;NA;investigational;L23;5;1
+49806720;Alectinib;482.62;DMSO;3;HY-13011;FK00231611;G2;ALK tyrosine kinase receptor;NA;approved, investigational;L23;5;1
+56649450;Alpelisib;441.47;DMSO;10;HY-15244;FK00231611;F2;Phosphatidylinositol 4,5-bisphosphate 3-kinase catalytic subunit alpha isoform;NA;approved, investigational;L23;5;1
+2123;Altretamine;210.28;DMSO;10;HY-B0181;FK00226951;A10;DNA;NA;approved;L23;5;1
+6450551;Axitinib;386.47;DMSO;1;HY-10065;FK00231611;G3;Vascular endothelial growth factor receptor 1;Vascular endothelial growth factor receptor 2;approved, investigational;L23;5;1
+51039095;AZD-4547;463.57;DMSO-warm;25;13111;Cayman Chemical;solo;NA;NA;investigational;L23;5;1
+138911318;BI-3406;462.46;DMSO;10;HY-125817;FK00231611;D2;NA;NA;NA;L23;5;1
+49836020;Birinapant;806.94;DMSO-warm;25;HY-16591;FK00228264;A2;NA;NA;investigational;L23;5;1
+5360373;Bleomycin (sulfate);1512.62;DMSO/water;10;HY-17565;FK00228263;C2;DNA;DNA ligase 1;approved, investigational;L23;5;1
+387447;Bortezomib;384.24;DMSO;0.5;HY-10227;FK00226951;E9;Proteasome subunit beta type-5;Proteasome subunit beta type-1;approved, investigational;L23;5;1
+5328940;Bosutinib;530.45;DMSO;3;HY-10158;FK00231611;D3;Breakpoint cluster region protein;Tyrosine-protein kinase ABL1;approved;L23;5;1
+68165256;Brigatinib;584.09;DMSO;2;HY-12857;FK00226951;G10;ALK tyrosine kinase receptor;Epidermal growth factor receptor;approved, investigational;L23;5;1
+25227436;Capivasertib;428.92;DMSO;10;HY-15431;FK00231611;B2;NA;NA;investigational;L23;5;1
+25145656;Capmatinib;412.42;DMSO;2;HY-13404;FK00231611;C2;Hepatocyte growth factor receptor;NA;approved, investigational;L23;5;1
+3091786;CH-223191;333.4;DMSO;10;HY-12684;FK00226951;F10;NA;NA;NA;L23;5;1
+16222096;Cobimetinib;531.31;DMSO-warm;10;HY-13064;FK00231611;H2;Dual specificity mitogen-activated protein kinase kinase 1;NA;approved, investigational;L23;5;1
+44462760;Dabrafenib;519.56;DMSO-warm;5;HY-14660;FK00226951;C8;Serine/threonine-protein kinase B-raf;RAF proto-oncogene serine/threonine-protein kinase;approved, investigational;L23;5;1
+11511120;Dacomitinib;469.94;DMSO;10;HY-13272;FK00226951;F8;Epidermal growth factor receptor;NA;approved, investigational;L23;5;1
+457193;Dactinomycin / Actinomycin D;1255.42;DMSO;10;A0977;LKT Laboratories;NA;DNA;DNA topoisomerase 2;approved, investigational;L23;5;1
+25117126;Defactinib;510.49;DMSO;10;HY-12289;FK00226951;C11;NA;NA;investigational;L23;5;1
+89683805;Enasidenib;473.38;DMSO;10;HY-18690;FK00226951;D8;Isocitrate dehydrogenase [NADP], mitochondrial;NA;approved, investigational;L23;5;1
+50922675;Encorafenib;540.01;DMSO;10;HY-15605;FK00226951;E11;Serine/threonine-protein kinase B-raf;G1/S-specific cyclin-D1;approved, investigational;L23;5;1
+25141092;Entrectinib;560.64;DMSO;10;HY-12678;FK00226951;B10;High affinity nerve growth factor receptor;NT-3 growth factor receptor;approved, investigational;L23;5;1
+41867;Epirubicin;579.98;DMSO;10;S1223;Selleckchem - solo kauf;solo;DNA;DNA topoisomerase 2-alpha;approved;L23;5;1
+67462786;Erdafitinib;446.54;DMSO;20;HY-18708;FK00226951;B11;Fibroblast growth factor receptor 1;Fibroblast growth factor receptor 2;approved, investigational;L23;5;1
+176870;Erlotinib;393.44;DMSO;20;HY-50896;FK00226951;F9;Nuclear receptor subfamily 1 group I member 2;Epidermal growth factor receptor;approved, investigational;L23;5;1
+86280523;ETC-159;391.4;DMSO;10;HY-18988;FK00231611;A2;NA;NA;NA;L23;5;1
+36462;Etoposide;588.56;DMSO;10;HY-13629;FK00231611;A3;DNA topoisomerase 2-alpha;DNA topoisomerase 2-beta;approved;L23;5;1
+44516953;Gedatolisib;615.73;DMSO;5;HY-10681;FK00226951;B4;NA;NA;investigational;L23;5;1
+123631;Gefitinib;446.9;DMSO-warm;10;HY-50895;FK00226951;E2;Epidermal growth factor receptor;NA;approved, investigational;L23;5;1
+60750;Gemcitabine;263.2;DMSO;12. May;HY-17026;FK00226951;A6;DNA;Ribonucleoside-diphosphate reductase large subunit;approved;L23;5;1
+49803313;Gilteritinib;552.71;DMSO;10;HY-12432;FK00226951;B2;Receptor-type tyrosine-protein kinase FLT3;Tyrosine-protein kinase receptor UFO;approved, investigational;L23;5;1
+25166913;Glasdegib;374.44;DMSO;10;HY-16391;FK00226951;H2;Smoothened homolog;NA;approved, investigational;L23;5;1
+68210102;GSK126;526.7;DMSO;10;HY-13470;FK00226951;G2;NA;NA;NA;L23;5;1
+285033;Homoharringtonine;545.62;DMSO;10;HY-14944;FK00226951;B5;50S ribosomal protein L2;60S ribosomal protein L3;approved, investigational;L23;5;1
+3657;Hydroxyurea;76.05;DMSO;10;HY-B0313;FK00226951;A4;Ribonucleoside-diphosphate reductase large subunit;NA;approved;L23;5;1
+11625818;Idelalisib;415.42;DMSO-warm;10;HY-13026;FK00226951;A3;Phosphatidylinositol 4,5-bisphosphate 3-kinase catalytic subunit delta isoform;NA;approved;L23;5;1
+104842;Irinotecan/SN-38;392.4;DMSO-warm;5;NA;NA;solo;DNA topoisomerase 1;NA;investigational;L23;5;1
+6445540;Ixabepilone;506.7;DMSO-warm;02. May;HY-10222;FK00226951;F3;Tubulin beta-3 chain;NA;approved, investigational;L23;5;1
+25183872;Ixazomib;361.03;DMSO;02. May;HY-10453;FK00226951;C3;NA;NA;approved, investigational;L23;5;1
+216326;Lenalidomide;259.26;DMSO;10;HY-A0003;FK00226951;E3;Protein cereblon;Tumor necrosis factor ligand superfamily member 11;approved;L23;5;1
+9823820;Lenvatinib;426.85;DMSO;10;HY-10981;FK00226951;B3;Vascular endothelial growth factor receptor 1;Vascular endothelial growth factor receptor 2;approved, investigational;L23;5;1
+46199207;LHD-221 / StemRegenin 1;429.5;DMSO-warm;10;HY-15001;FK00226951;A8;NA;NA;NA;L23;5;1
+57327016;Lurbinectedin;784.87;DMSO;02. May;HY-16293;FK00231611;G6;DNA;NA;approved, investigational;L23;5;1
+126941;Methotrexate;454.44;DMSO-warm;10;HY-14519;FK00231611;A6;Thymidylate synthase;Bifunctional purine biosynthesis protein PURH;approved;L23;5;1
+16224745;MK-8776 / SCH900776;376.25;DMSO;10;HY-15532;FK00231611;E4;NA;NA;NA;L23;5;1
+76953;MTIC;168.16;DMSO;10;HY-119696;FK00231611;F5;NA;NA;NA;L23;5;1
+24978538;Navitoclax;974.61;DMSO;0.5;HY-10087;FK00231611;E6;Apoptosis regulator Bcl-2;Bcl-2-like protein 2;investigational;L23;5;1
+24958200;Niraparib;320.39;DMSO;10;HY-10619;FK00231611;C6;Poly [ADP-ribose] polymerase 1;Poly [ADP-ribose] polymerase 2;approved, investigational;L23;5;1
+36314;Paclitaxel;853.91;DMSO;02. May;HY-B0015;FK00231611;B6;Tubulin beta-1 chain;Apoptosis regulator Bcl-2;approved, vet_approved;L23;5;1
+100427;Palifosfamide;221.02;DMSO;10;HY-14798;NA;NA;DNA (cytosine-5)-methyltransferase 1;NA;investigational;L23;5;1
+6918837;Panobinostat;349.43;DMSO;02. May;HY-10224;FK00231611;H5;Histone deacetylase;NA;approved, investigational;L23;5;1
+25151352;Pexidartinib;417.81;DMSO-warm;5;HY-16749;FK00231611;B5;Macrophage colony-stimulating factor 1 receptor;Mast/stem cell growth factor receptor Kit;approved, investigational;L23;5;1
+24826799;Ponatinib;532.56;DMSO-warm;5;HY-12047;FK00226951;G6;Tyrosine-protein kinase ABL1;Breakpoint cluster region protein;approved, investigational;L23;5;1
+77999;Rosiglitazone;357.4;DMSO;10;HY-17386;FK00226951;F6;Peroxisome proliferator-activated receptor gamma;Long-chain-fatty-acid--CoA ligase 4;approved, investigational;L23;5;1
+9931954;Rucaparib;421.36;DMSO;20;HY-10617A;FK00226951;D4;Poly [ADP-ribose] polymerase 1;Poly [ADP-ribose] polymerase 2;approved, investigational;L23;5;1
+25126798;Ruxolitinib;306.37;DMSO-warm;20;HY-50856;FK00226951;C5;Tyrosine-protein kinase JAK2;Tyrosine-protein kinase JAK1;approved;L23;5;1
+134436906;Selpercatinib;525.6;DMSO;10;HY-114370;FK00226951;C6;Proto-oncogene tyrosine-protein kinase receptor Ret;Vascular endothelial growth factor receptor 1;approved, investigational;L23;5;1
+10127622;Selumetinib;457.68;DMSO;12. May;HY-50706;FK00226951;C4;Dual specificity mitogen-activated protein kinase kinase 1;Dual specificity mitogen-activated protein kinase kinase 2;approved, investigational;L23;5;1
+29327;Streptozocin;265.22;DMSO-warm;10;HY-13753;FK00226951;H4;O-GlcNAcase BT_4395;DNA;approved, investigational;L23;5;1
+5329102;Sunitinib;398.47;DMSO;10;HY-10255A;FK00226951;H3;Platelet-derived growth factor receptor beta;Vascular endothelial growth factor receptor 1;approved, investigational;L23;5;1
+6918289;Temsirolimus;1030.29;DMSO;2;HY-50910;FK00226951;C7;Serine/threonine-protein kinase mTOR;NA;approved;L23;5;1
+51039094;Tucatinib;480.52;DMSO;5;HY-16069;FK00226951;H5;Receptor tyrosine-protein kinase erbB-2;Receptor tyrosine-protein kinase erbB-3;approved, investigational;L23;5;1
+3081361;Vandetanib;475.35;DMSO;10;HY-10260;FK00226951;E7;Vascular endothelial growth factor A;Epidermal growth factor receptor;approved;L23;5;1
+13342;Vinblastine;909.05;DMSO;0.5;S4505;Selleckchem - solo kauf;solo;Tubulin alpha-1A chain;Tubulin beta chain;approved;L23;5;1
+10461508;Volasertib;618.81;DMSO-warm;5;HY-12137;FK00226951;C9;Serine/threonine-protein kinase PLK1;NA;investigational;L23;5;1
+5311;Vorinostat;264.3;DMSO;20;HY-10221;FK00226951;B8;Histone deacetylase 1;Histone deacetylase 2;approved, investigational;L23;5;1
+3385;5-FU;130.08;DMSO;20;HY-90006;FK00226951;G11;DNA;RNA;approved;L23;5;0.2
+46220502;Abemaciclib;506.59;DMSO;10;HY-16297A;FK00226951;H10;Cyclin-dependent kinase 4;Cyclin-dependent kinase 6;approved, investigational;L23;5;0.2
+71226662;Acalabrutinib;465.51;DMSO;3;HY-17600;FK00231611;B3;Tyrosine-protein kinase BTK;NA;approved, investigational;L23;5;0.2
+10184653;Afatinib;485.94;DMSO;20;HY-10261;FK00226951;C10;Epidermal growth factor receptor;Receptor tyrosine-protein kinase erbB-2;approved;L23;5;0.2
+46843057;Afuresertib;427.3;DMSO-warm;3;HY-15727;FK00226951;E10;NA;NA;investigational;L23;5;0.2
+49806720;Alectinib;482.62;DMSO;3;HY-13011;FK00231611;G2;ALK tyrosine kinase receptor;NA;approved, investigational;L23;5;0.2
+56649450;Alpelisib;441.47;DMSO;10;HY-15244;FK00231611;F2;Phosphatidylinositol 4,5-bisphosphate 3-kinase catalytic subunit alpha isoform;NA;approved, investigational;L23;5;0.2
+2123;Altretamine;210.28;DMSO;10;HY-B0181;FK00226951;A10;DNA;NA;approved;L23;5;0.2
+6450551;Axitinib;386.47;DMSO;1;HY-10065;FK00231611;G3;Vascular endothelial growth factor receptor 1;Vascular endothelial growth factor receptor 2;approved, investigational;L23;5;0.2
+51039095;AZD-4547;463.57;DMSO-warm;25;13111;Cayman Chemical;solo;NA;NA;investigational;L23;5;0.2
+138911318;BI-3406;462.46;DMSO;10;HY-125817;FK00231611;D2;NA;NA;NA;L23;5;0.2
+49836020;Birinapant;806.94;DMSO-warm;25;HY-16591;FK00228264;A2;NA;NA;investigational;L23;5;0.2
+5360373;Bleomycin (sulfate);1512.62;DMSO/water;10;HY-17565;FK00228263;C2;DNA;DNA ligase 1;approved, investigational;L23;5;0.2
+387447;Bortezomib;384.24;DMSO;0.5;HY-10227;FK00226951;E9;Proteasome subunit beta type-5;Proteasome subunit beta type-1;approved, investigational;L23;5;0.2
+5328940;Bosutinib;530.45;DMSO;3;HY-10158;FK00231611;D3;Breakpoint cluster region protein;Tyrosine-protein kinase ABL1;approved;L23;5;0.2
+68165256;Brigatinib;584.09;DMSO;2;HY-12857;FK00226951;G10;ALK tyrosine kinase receptor;Epidermal growth factor receptor;approved, investigational;L23;5;0.2
+25227436;Capivasertib;428.92;DMSO;10;HY-15431;FK00231611;B2;NA;NA;investigational;L23;5;0.2
+25145656;Capmatinib;412.42;DMSO;2;HY-13404;FK00231611;C2;Hepatocyte growth factor receptor;NA;approved, investigational;L23;5;0.2
+3091786;CH-223191;333.4;DMSO;10;HY-12684;FK00226951;F10;NA;NA;NA;L23;5;0.2
+16222096;Cobimetinib;531.31;DMSO-warm;10;HY-13064;FK00231611;H2;Dual specificity mitogen-activated protein kinase kinase 1;NA;approved, investigational;L23;5;0.2
+44462760;Dabrafenib;519.56;DMSO-warm;5;HY-14660;FK00226951;C8;Serine/threonine-protein kinase B-raf;RAF proto-oncogene serine/threonine-protein kinase;approved, investigational;L23;5;0.2
+11511120;Dacomitinib;469.94;DMSO;10;HY-13272;FK00226951;F8;Epidermal growth factor receptor;NA;approved, investigational;L23;5;0.2
+457193;Dactinomycin / Actinomycin D;1255.42;DMSO;10;A0977;LKT Laboratories;NA;DNA;DNA topoisomerase 2;approved, investigational;L23;5;0.2
+25117126;Defactinib;510.49;DMSO;10;HY-12289;FK00226951;C11;NA;NA;investigational;L23;5;0.2
+89683805;Enasidenib;473.38;DMSO;10;HY-18690;FK00226951;D8;Isocitrate dehydrogenase [NADP], mitochondrial;NA;approved, investigational;L23;5;0.2
+50922675;Encorafenib;540.01;DMSO;10;HY-15605;FK00226951;E11;Serine/threonine-protein kinase B-raf;G1/S-specific cyclin-D1;approved, investigational;L23;5;0.2
+25141092;Entrectinib;560.64;DMSO;10;HY-12678;FK00226951;B10;High affinity nerve growth factor receptor;NT-3 growth factor receptor;approved, investigational;L23;5;0.2
+41867;Epirubicin;579.98;DMSO;10;S1223;Selleckchem - solo kauf;solo;DNA;DNA topoisomerase 2-alpha;approved;L23;5;0.2
+67462786;Erdafitinib;446.54;DMSO;20;HY-18708;FK00226951;B11;Fibroblast growth factor receptor 1;Fibroblast growth factor receptor 2;approved, investigational;L23;5;0.2
+176870;Erlotinib;393.44;DMSO;20;HY-50896;FK00226951;F9;Nuclear receptor subfamily 1 group I member 2;Epidermal growth factor receptor;approved, investigational;L23;5;0.2
+86280523;ETC-159;391.4;DMSO;10;HY-18988;FK00231611;A2;NA;NA;NA;L23;5;0.2
+36462;Etoposide;588.56;DMSO;10;HY-13629;FK00231611;A3;DNA topoisomerase 2-alpha;DNA topoisomerase 2-beta;approved;L23;5;0.2
+44516953;Gedatolisib;615.73;DMSO;5;HY-10681;FK00226951;B4;NA;NA;investigational;L23;5;0.2
+123631;Gefitinib;446.9;DMSO-warm;10;HY-50895;FK00226951;E2;Epidermal growth factor receptor;NA;approved, investigational;L23;5;0.2
+60750;Gemcitabine;263.2;DMSO;12. May;HY-17026;FK00226951;A6;DNA;Ribonucleoside-diphosphate reductase large subunit;approved;L23;5;0.2
+49803313;Gilteritinib;552.71;DMSO;10;HY-12432;FK00226951;B2;Receptor-type tyrosine-protein kinase FLT3;Tyrosine-protein kinase receptor UFO;approved, investigational;L23;5;0.2
+25166913;Glasdegib;374.44;DMSO;10;HY-16391;FK00226951;H2;Smoothened homolog;NA;approved, investigational;L23;5;0.2
+68210102;GSK126;526.7;DMSO;10;HY-13470;FK00226951;G2;NA;NA;NA;L23;5;0.2
+285033;Homoharringtonine;545.62;DMSO;10;HY-14944;FK00226951;B5;50S ribosomal protein L2;60S ribosomal protein L3;approved, investigational;L23;5;0.2
+3657;Hydroxyurea;76.05;DMSO;10;HY-B0313;FK00226951;A4;Ribonucleoside-diphosphate reductase large subunit;NA;approved;L23;5;0.2
+11625818;Idelalisib;415.42;DMSO-warm;10;HY-13026;FK00226951;A3;Phosphatidylinositol 4,5-bisphosphate 3-kinase catalytic subunit delta isoform;NA;approved;L23;5;0.2
+104842;Irinotecan/SN-38;392.4;DMSO-warm;5;NA;NA;solo;DNA topoisomerase 1;NA;investigational;L23;5;0.2
+6445540;Ixabepilone;506.7;DMSO-warm;02. May;HY-10222;FK00226951;F3;Tubulin beta-3 chain;NA;approved, investigational;L23;5;0.2
+25183872;Ixazomib;361.03;DMSO;02. May;HY-10453;FK00226951;C3;NA;NA;approved, investigational;L23;5;0.2
+216326;Lenalidomide;259.26;DMSO;10;HY-A0003;FK00226951;E3;Protein cereblon;Tumor necrosis factor ligand superfamily member 11;approved;L23;5;0.2
+9823820;Lenvatinib;426.85;DMSO;10;HY-10981;FK00226951;B3;Vascular endothelial growth factor receptor 1;Vascular endothelial growth factor receptor 2;approved, investigational;L23;5;0.2
+46199207;LHD-221 / StemRegenin 1;429.5;DMSO-warm;10;HY-15001;FK00226951;A8;NA;NA;NA;L23;5;0.2
+57327016;Lurbinectedin;784.87;DMSO;02. May;HY-16293;FK00231611;G6;DNA;NA;approved, investigational;L23;5;0.2
+126941;Methotrexate;454.44;DMSO-warm;10;HY-14519;FK00231611;A6;Thymidylate synthase;Bifunctional purine biosynthesis protein PURH;approved;L23;5;0.2
+16224745;MK-8776 / SCH900776;376.25;DMSO;10;HY-15532;FK00231611;E4;NA;NA;NA;L23;5;0.2
+76953;MTIC;168.16;DMSO;10;HY-119696;FK00231611;F5;NA;NA;NA;L23;5;0.2
+24978538;Navitoclax;974.61;DMSO;0.5;HY-10087;FK00231611;E6;Apoptosis regulator Bcl-2;Bcl-2-like protein 2;investigational;L23;5;0.2
+24958200;Niraparib;320.39;DMSO;10;HY-10619;FK00231611;C6;Poly [ADP-ribose] polymerase 1;Poly [ADP-ribose] polymerase 2;approved, investigational;L23;5;0.2
+36314;Paclitaxel;853.91;DMSO;02. May;HY-B0015;FK00231611;B6;Tubulin beta-1 chain;Apoptosis regulator Bcl-2;approved, vet_approved;L23;5;0.2
+100427;Palifosfamide;221.02;DMSO;10;HY-14798;NA;NA;DNA (cytosine-5)-methyltransferase 1;NA;investigational;L23;5;0.2
+6918837;Panobinostat;349.43;DMSO;02. May;HY-10224;FK00231611;H5;Histone deacetylase;NA;approved, investigational;L23;5;0.2
+25151352;Pexidartinib;417.81;DMSO-warm;5;HY-16749;FK00231611;B5;Macrophage colony-stimulating factor 1 receptor;Mast/stem cell growth factor receptor Kit;approved, investigational;L23;5;0.2
+24826799;Ponatinib;532.56;DMSO-warm;5;HY-12047;FK00226951;G6;Tyrosine-protein kinase ABL1;Breakpoint cluster region protein;approved, investigational;L23;5;0.2
+77999;Rosiglitazone;357.4;DMSO;10;HY-17386;FK00226951;F6;Peroxisome proliferator-activated receptor gamma;Long-chain-fatty-acid--CoA ligase 4;approved, investigational;L23;5;0.2
+9931954;Rucaparib;421.36;DMSO;20;HY-10617A;FK00226951;D4;Poly [ADP-ribose] polymerase 1;Poly [ADP-ribose] polymerase 2;approved, investigational;L23;5;0.2
+25126798;Ruxolitinib;306.37;DMSO-warm;20;HY-50856;FK00226951;C5;Tyrosine-protein kinase JAK2;Tyrosine-protein kinase JAK1;approved;L23;5;0.2
+134436906;Selpercatinib;525.6;DMSO;10;HY-114370;FK00226951;C6;Proto-oncogene tyrosine-protein kinase receptor Ret;Vascular endothelial growth factor receptor 1;approved, investigational;L23;5;0.2
+10127622;Selumetinib;457.68;DMSO;12. May;HY-50706;FK00226951;C4;Dual specificity mitogen-activated protein kinase kinase 1;Dual specificity mitogen-activated protein kinase kinase 2;approved, investigational;L23;5;0.2
+29327;Streptozocin;265.22;DMSO-warm;10;HY-13753;FK00226951;H4;O-GlcNAcase BT_4395;DNA;approved, investigational;L23;5;0.2
+5329102;Sunitinib;398.47;DMSO;10;HY-10255A;FK00226951;H3;Platelet-derived growth factor receptor beta;Vascular endothelial growth factor receptor 1;approved, investigational;L23;5;0.2
+6918289;Temsirolimus;1030.29;DMSO;2;HY-50910;FK00226951;C7;Serine/threonine-protein kinase mTOR;NA;approved;L23;5;0.2
+51039094;Tucatinib;480.52;DMSO;5;HY-16069;FK00226951;H5;Receptor tyrosine-protein kinase erbB-2;Receptor tyrosine-protein kinase erbB-3;approved, investigational;L23;5;0.2
+3081361;Vandetanib;475.35;DMSO;10;HY-10260;FK00226951;E7;Vascular endothelial growth factor A;Epidermal growth factor receptor;approved;L23;5;0.2
+13342;Vinblastine;909.05;DMSO;0.5;S4505;Selleckchem - solo kauf;solo;Tubulin alpha-1A chain;Tubulin beta chain;approved;L23;5;0.2
+10461508;Volasertib;618.81;DMSO-warm;5;HY-12137;FK00226951;C9;Serine/threonine-protein kinase PLK1;NA;investigational;L23;5;0.2
+5311;Vorinostat;264.3;DMSO;20;HY-10221;FK00226951;B8;Histone deacetylase 1;Histone deacetylase 2;approved, investigational;L23;5;0.2
+3385;5-FU;130.08;DMSO;20;HY-90006;FK00226951;G11;DNA;RNA;approved;L23;5;0.04
+46220502;Abemaciclib;506.59;DMSO;10;HY-16297A;FK00226951;H10;Cyclin-dependent kinase 4;Cyclin-dependent kinase 6;approved, investigational;L23;5;0.04
+71226662;Acalabrutinib;465.51;DMSO;3;HY-17600;FK00231611;B3;Tyrosine-protein kinase BTK;NA;approved, investigational;L23;5;0.04
+10184653;Afatinib;485.94;DMSO;20;HY-10261;FK00226951;C10;Epidermal growth factor receptor;Receptor tyrosine-protein kinase erbB-2;approved;L23;5;0.04
+46843057;Afuresertib;427.3;DMSO-warm;3;HY-15727;FK00226951;E10;NA;NA;investigational;L23;5;0.04
+49806720;Alectinib;482.62;DMSO;3;HY-13011;FK00231611;G2;ALK tyrosine kinase receptor;NA;approved, investigational;L23;5;0.04
+56649450;Alpelisib;441.47;DMSO;10;HY-15244;FK00231611;F2;Phosphatidylinositol 4,5-bisphosphate 3-kinase catalytic subunit alpha isoform;NA;approved, investigational;L23;5;0.04
+2123;Altretamine;210.28;DMSO;10;HY-B0181;FK00226951;A10;DNA;NA;approved;L23;5;0.04
+6450551;Axitinib;386.47;DMSO;1;HY-10065;FK00231611;G3;Vascular endothelial growth factor receptor 1;Vascular endothelial growth factor receptor 2;approved, investigational;L23;5;0.04
+51039095;AZD-4547;463.57;DMSO-warm;25;13111;Cayman Chemical;solo;NA;NA;investigational;L23;5;0.04
+138911318;BI-3406;462.46;DMSO;10;HY-125817;FK00231611;D2;NA;NA;NA;L23;5;0.04
+49836020;Birinapant;806.94;DMSO-warm;25;HY-16591;FK00228264;A2;NA;NA;investigational;L23;5;0.04
+5360373;Bleomycin (sulfate);1512.62;DMSO/water;10;HY-17565;FK00228263;C2;DNA;DNA ligase 1;approved, investigational;L23;5;0.04
+387447;Bortezomib;384.24;DMSO;0.5;HY-10227;FK00226951;E9;Proteasome subunit beta type-5;Proteasome subunit beta type-1;approved, investigational;L23;5;0.04
+5328940;Bosutinib;530.45;DMSO;3;HY-10158;FK00231611;D3;Breakpoint cluster region protein;Tyrosine-protein kinase ABL1;approved;L23;5;0.04
+68165256;Brigatinib;584.09;DMSO;2;HY-12857;FK00226951;G10;ALK tyrosine kinase receptor;Epidermal growth factor receptor;approved, investigational;L23;5;0.04
+25227436;Capivasertib;428.92;DMSO;10;HY-15431;FK00231611;B2;NA;NA;investigational;L23;5;0.04
+25145656;Capmatinib;412.42;DMSO;2;HY-13404;FK00231611;C2;Hepatocyte growth factor receptor;NA;approved, investigational;L23;5;0.04
+3091786;CH-223191;333.4;DMSO;10;HY-12684;FK00226951;F10;NA;NA;NA;L23;5;0.04
+16222096;Cobimetinib;531.31;DMSO-warm;10;HY-13064;FK00231611;H2;Dual specificity mitogen-activated protein kinase kinase 1;NA;approved, investigational;L23;5;0.04
+44462760;Dabrafenib;519.56;DMSO-warm;5;HY-14660;FK00226951;C8;Serine/threonine-protein kinase B-raf;RAF proto-oncogene serine/threonine-protein kinase;approved, investigational;L23;5;0.04
+11511120;Dacomitinib;469.94;DMSO;10;HY-13272;FK00226951;F8;Epidermal growth factor receptor;NA;approved, investigational;L23;5;0.04
+457193;Dactinomycin / Actinomycin D;1255.42;DMSO;10;A0977;LKT Laboratories;NA;DNA;DNA topoisomerase 2;approved, investigational;L23;5;0.04
+25117126;Defactinib;510.49;DMSO;10;HY-12289;FK00226951;C11;NA;NA;investigational;L23;5;0.04
+89683805;Enasidenib;473.38;DMSO;10;HY-18690;FK00226951;D8;Isocitrate dehydrogenase [NADP], mitochondrial;NA;approved, investigational;L23;5;0.04
+50922675;Encorafenib;540.01;DMSO;10;HY-15605;FK00226951;E11;Serine/threonine-protein kinase B-raf;G1/S-specific cyclin-D1;approved, investigational;L23;5;0.04
+25141092;Entrectinib;560.64;DMSO;10;HY-12678;FK00226951;B10;High affinity nerve growth factor receptor;NT-3 growth factor receptor;approved, investigational;L23;5;0.04
+41867;Epirubicin;579.98;DMSO;10;S1223;Selleckchem - solo kauf;solo;DNA;DNA topoisomerase 2-alpha;approved;L23;5;0.04
+67462786;Erdafitinib;446.54;DMSO;20;HY-18708;FK00226951;B11;Fibroblast growth factor receptor 1;Fibroblast growth factor receptor 2;approved, investigational;L23;5;0.04
+176870;Erlotinib;393.44;DMSO;20;HY-50896;FK00226951;F9;Nuclear receptor subfamily 1 group I member 2;Epidermal growth factor receptor;approved, investigational;L23;5;0.04
+86280523;ETC-159;391.4;DMSO;10;HY-18988;FK00231611;A2;NA;NA;NA;L23;5;0.04
+36462;Etoposide;588.56;DMSO;10;HY-13629;FK00231611;A3;DNA topoisomerase 2-alpha;DNA topoisomerase 2-beta;approved;L23;5;0.04
+44516953;Gedatolisib;615.73;DMSO;5;HY-10681;FK00226951;B4;NA;NA;investigational;L23;5;0.04
+123631;Gefitinib;446.9;DMSO-warm;10;HY-50895;FK00226951;E2;Epidermal growth factor receptor;NA;approved, investigational;L23;5;0.04
+60750;Gemcitabine;263.2;DMSO;12. May;HY-17026;FK00226951;A6;DNA;Ribonucleoside-diphosphate reductase large subunit;approved;L23;5;0.04
+49803313;Gilteritinib;552.71;DMSO;10;HY-12432;FK00226951;B2;Receptor-type tyrosine-protein kinase FLT3;Tyrosine-protein kinase receptor UFO;approved, investigational;L23;5;0.04
+25166913;Glasdegib;374.44;DMSO;10;HY-16391;FK00226951;H2;Smoothened homolog;NA;approved, investigational;L23;5;0.04
+68210102;GSK126;526.7;DMSO;10;HY-13470;FK00226951;G2;NA;NA;NA;L23;5;0.04
+285033;Homoharringtonine;545.62;DMSO;10;HY-14944;FK00226951;B5;50S ribosomal protein L2;60S ribosomal protein L3;approved, investigational;L23;5;0.04
+3657;Hydroxyurea;76.05;DMSO;10;HY-B0313;FK00226951;A4;Ribonucleoside-diphosphate reductase large subunit;NA;approved;L23;5;0.04
+11625818;Idelalisib;415.42;DMSO-warm;10;HY-13026;FK00226951;A3;Phosphatidylinositol 4,5-bisphosphate 3-kinase catalytic subunit delta isoform;NA;approved;L23;5;0.04
+104842;Irinotecan/SN-38;392.4;DMSO-warm;5;NA;NA;solo;DNA topoisomerase 1;NA;investigational;L23;5;0.04
+6445540;Ixabepilone;506.7;DMSO-warm;02. May;HY-10222;FK00226951;F3;Tubulin beta-3 chain;NA;approved, investigational;L23;5;0.04
+25183872;Ixazomib;361.03;DMSO;02. May;HY-10453;FK00226951;C3;NA;NA;approved, investigational;L23;5;0.04
+216326;Lenalidomide;259.26;DMSO;10;HY-A0003;FK00226951;E3;Protein cereblon;Tumor necrosis factor ligand superfamily member 11;approved;L23;5;0.04
+9823820;Lenvatinib;426.85;DMSO;10;HY-10981;FK00226951;B3;Vascular endothelial growth factor receptor 1;Vascular endothelial growth factor receptor 2;approved, investigational;L23;5;0.04
+46199207;LHD-221 / StemRegenin 1;429.5;DMSO-warm;10;HY-15001;FK00226951;A8;NA;NA;NA;L23;5;0.04
+57327016;Lurbinectedin;784.87;DMSO;02. May;HY-16293;FK00231611;G6;DNA;NA;approved, investigational;L23;5;0.04
+126941;Methotrexate;454.44;DMSO-warm;10;HY-14519;FK00231611;A6;Thymidylate synthase;Bifunctional purine biosynthesis protein PURH;approved;L23;5;0.04
+16224745;MK-8776 / SCH900776;376.25;DMSO;10;HY-15532;FK00231611;E4;NA;NA;NA;L23;5;0.04
+76953;MTIC;168.16;DMSO;10;HY-119696;FK00231611;F5;NA;NA;NA;L23;5;0.04
+24978538;Navitoclax;974.61;DMSO;0.5;HY-10087;FK00231611;E6;Apoptosis regulator Bcl-2;Bcl-2-like protein 2;investigational;L23;5;0.04
+24958200;Niraparib;320.39;DMSO;10;HY-10619;FK00231611;C6;Poly [ADP-ribose] polymerase 1;Poly [ADP-ribose] polymerase 2;approved, investigational;L23;5;0.04
+36314;Paclitaxel;853.91;DMSO;02. May;HY-B0015;FK00231611;B6;Tubulin beta-1 chain;Apoptosis regulator Bcl-2;approved, vet_approved;L23;5;0.04
+100427;Palifosfamide;221.02;DMSO;10;HY-14798;NA;NA;DNA (cytosine-5)-methyltransferase 1;NA;investigational;L23;5;0.04
+6918837;Panobinostat;349.43;DMSO;02. May;HY-10224;FK00231611;H5;Histone deacetylase;NA;approved, investigational;L23;5;0.04
+25151352;Pexidartinib;417.81;DMSO-warm;5;HY-16749;FK00231611;B5;Macrophage colony-stimulating factor 1 receptor;Mast/stem cell growth factor receptor Kit;approved, investigational;L23;5;0.04
+24826799;Ponatinib;532.56;DMSO-warm;5;HY-12047;FK00226951;G6;Tyrosine-protein kinase ABL1;Breakpoint cluster region protein;approved, investigational;L23;5;0.04
+77999;Rosiglitazone;357.4;DMSO;10;HY-17386;FK00226951;F6;Peroxisome proliferator-activated receptor gamma;Long-chain-fatty-acid--CoA ligase 4;approved, investigational;L23;5;0.04
+9931954;Rucaparib;421.36;DMSO;20;HY-10617A;FK00226951;D4;Poly [ADP-ribose] polymerase 1;Poly [ADP-ribose] polymerase 2;approved, investigational;L23;5;0.04
+25126798;Ruxolitinib;306.37;DMSO-warm;20;HY-50856;FK00226951;C5;Tyrosine-protein kinase JAK2;Tyrosine-protein kinase JAK1;approved;L23;5;0.04
+134436906;Selpercatinib;525.6;DMSO;10;HY-114370;FK00226951;C6;Proto-oncogene tyrosine-protein kinase receptor Ret;Vascular endothelial growth factor receptor 1;approved, investigational;L23;5;0.04
+10127622;Selumetinib;457.68;DMSO;12. May;HY-50706;FK00226951;C4;Dual specificity mitogen-activated protein kinase kinase 1;Dual specificity mitogen-activated protein kinase kinase 2;approved, investigational;L23;5;0.04
+29327;Streptozocin;265.22;DMSO-warm;10;HY-13753;FK00226951;H4;O-GlcNAcase BT_4395;DNA;approved, investigational;L23;5;0.04
+5329102;Sunitinib;398.47;DMSO;10;HY-10255A;FK00226951;H3;Platelet-derived growth factor receptor beta;Vascular endothelial growth factor receptor 1;approved, investigational;L23;5;0.04
+6918289;Temsirolimus;1030.29;DMSO;2;HY-50910;FK00226951;C7;Serine/threonine-protein kinase mTOR;NA;approved;L23;5;0.04
+51039094;Tucatinib;480.52;DMSO;5;HY-16069;FK00226951;H5;Receptor tyrosine-protein kinase erbB-2;Receptor tyrosine-protein kinase erbB-3;approved, investigational;L23;5;0.04
+3081361;Vandetanib;475.35;DMSO;10;HY-10260;FK00226951;E7;Vascular endothelial growth factor A;Epidermal growth factor receptor;approved;L23;5;0.04
+13342;Vinblastine;909.05;DMSO;0.5;S4505;Selleckchem - solo kauf;solo;Tubulin alpha-1A chain;Tubulin beta chain;approved;L23;5;0.04
+10461508;Volasertib;618.81;DMSO-warm;5;HY-12137;FK00226951;C9;Serine/threonine-protein kinase PLK1;NA;investigational;L23;5;0.04
+5311;Vorinostat;264.3;DMSO;20;HY-10221;FK00226951;B8;Histone deacetylase 1;Histone deacetylase 2;approved, investigational;L23;5;0.04
+3385;5-FU;130.08;DMSO;20;HY-90006;FK00226951;G11;DNA;RNA;approved;L23;5;8
+46220502;Abemaciclib;506.59;DMSO;10;HY-16297A;FK00226951;H10;Cyclin-dependent kinase 4;Cyclin-dependent kinase 6;approved, investigational;L23;5;8
+71226662;Acalabrutinib;465.51;DMSO;3;HY-17600;FK00231611;B3;Tyrosine-protein kinase BTK;NA;approved, investigational;L23;5;8
+10184653;Afatinib;485.94;DMSO;20;HY-10261;FK00226951;C10;Epidermal growth factor receptor;Receptor tyrosine-protein kinase erbB-2;approved;L23;5;8
+46843057;Afuresertib;427.3;DMSO-warm;3;HY-15727;FK00226951;E10;NA;NA;investigational;L23;5;8
+49806720;Alectinib;482.62;DMSO;3;HY-13011;FK00231611;G2;ALK tyrosine kinase receptor;NA;approved, investigational;L23;5;8
+56649450;Alpelisib;441.47;DMSO;10;HY-15244;FK00231611;F2;Phosphatidylinositol 4,5-bisphosphate 3-kinase catalytic subunit alpha isoform;NA;approved, investigational;L23;5;8
+2123;Altretamine;210.28;DMSO;10;HY-B0181;FK00226951;A10;DNA;NA;approved;L23;5;8
+6450551;Axitinib;386.47;DMSO;1;HY-10065;FK00231611;G3;Vascular endothelial growth factor receptor 1;Vascular endothelial growth factor receptor 2;approved, investigational;L23;5;8
+51039095;AZD-4547;463.57;DMSO-warm;25;13111;Cayman Chemical;solo;NA;NA;investigational;L23;5;8
+138911318;BI-3406;462.46;DMSO;10;HY-125817;FK00231611;D2;NA;NA;NA;L23;5;8
+49836020;Birinapant;806.94;DMSO-warm;25;HY-16591;FK00228264;A2;NA;NA;investigational;L23;5;8
+5360373;Bleomycin (sulfate);1512.62;DMSO/water;10;HY-17565;FK00228263;C2;DNA;DNA ligase 1;approved, investigational;L23;5;8
+387447;Bortezomib;384.24;DMSO;0.5;HY-10227;FK00226951;E9;Proteasome subunit beta type-5;Proteasome subunit beta type-1;approved, investigational;L23;5;8
+5328940;Bosutinib;530.45;DMSO;3;HY-10158;FK00231611;D3;Breakpoint cluster region protein;Tyrosine-protein kinase ABL1;approved;L23;5;8
+68165256;Brigatinib;584.09;DMSO;2;HY-12857;FK00226951;G10;ALK tyrosine kinase receptor;Epidermal growth factor receptor;approved, investigational;L23;5;8
+25227436;Capivasertib;428.92;DMSO;10;HY-15431;FK00231611;B2;NA;NA;investigational;L23;5;8
+25145656;Capmatinib;412.42;DMSO;2;HY-13404;FK00231611;C2;Hepatocyte growth factor receptor;NA;approved, investigational;L23;5;8
+3091786;CH-223191;333.4;DMSO;10;HY-12684;FK00226951;F10;NA;NA;NA;L23;5;8
+16222096;Cobimetinib;531.31;DMSO-warm;10;HY-13064;FK00231611;H2;Dual specificity mitogen-activated protein kinase kinase 1;NA;approved, investigational;L23;5;8
+44462760;Dabrafenib;519.56;DMSO-warm;5;HY-14660;FK00226951;C8;Serine/threonine-protein kinase B-raf;RAF proto-oncogene serine/threonine-protein kinase;approved, investigational;L23;5;8
+11511120;Dacomitinib;469.94;DMSO;10;HY-13272;FK00226951;F8;Epidermal growth factor receptor;NA;approved, investigational;L23;5;8
+457193;Dactinomycin / Actinomycin D;1255.42;DMSO;10;A0977;LKT Laboratories;NA;DNA;DNA topoisomerase 2;approved, investigational;L23;5;8
+25117126;Defactinib;510.49;DMSO;10;HY-12289;FK00226951;C11;NA;NA;investigational;L23;5;8
+89683805;Enasidenib;473.38;DMSO;10;HY-18690;FK00226951;D8;Isocitrate dehydrogenase [NADP], mitochondrial;NA;approved, investigational;L23;5;8
+50922675;Encorafenib;540.01;DMSO;10;HY-15605;FK00226951;E11;Serine/threonine-protein kinase B-raf;G1/S-specific cyclin-D1;approved, investigational;L23;5;8
+25141092;Entrectinib;560.64;DMSO;10;HY-12678;FK00226951;B10;High affinity nerve growth factor receptor;NT-3 growth factor receptor;approved, investigational;L23;5;8
+41867;Epirubicin;579.98;DMSO;10;S1223;Selleckchem - solo kauf;solo;DNA;DNA topoisomerase 2-alpha;approved;L23;5;8
+67462786;Erdafitinib;446.54;DMSO;20;HY-18708;FK00226951;B11;Fibroblast growth factor receptor 1;Fibroblast growth factor receptor 2;approved, investigational;L23;5;8
+176870;Erlotinib;393.44;DMSO;20;HY-50896;FK00226951;F9;Nuclear receptor subfamily 1 group I member 2;Epidermal growth factor receptor;approved, investigational;L23;5;8
+86280523;ETC-159;391.4;DMSO;10;HY-18988;FK00231611;A2;NA;NA;NA;L23;5;8
+36462;Etoposide;588.56;DMSO;10;HY-13629;FK00231611;A3;DNA topoisomerase 2-alpha;DNA topoisomerase 2-beta;approved;L23;5;8
+44516953;Gedatolisib;615.73;DMSO;5;HY-10681;FK00226951;B4;NA;NA;investigational;L23;5;8
+123631;Gefitinib;446.9;DMSO-warm;10;HY-50895;FK00226951;E2;Epidermal growth factor receptor;NA;approved, investigational;L23;5;8
+60750;Gemcitabine;263.2;DMSO;12. May;HY-17026;FK00226951;A6;DNA;Ribonucleoside-diphosphate reductase large subunit;approved;L23;5;8
+49803313;Gilteritinib;552.71;DMSO;10;HY-12432;FK00226951;B2;Receptor-type tyrosine-protein kinase FLT3;Tyrosine-protein kinase receptor UFO;approved, investigational;L23;5;8
+25166913;Glasdegib;374.44;DMSO;10;HY-16391;FK00226951;H2;Smoothened homolog;NA;approved, investigational;L23;5;8
+68210102;GSK126;526.7;DMSO;10;HY-13470;FK00226951;G2;NA;NA;NA;L23;5;8
+285033;Homoharringtonine;545.62;DMSO;10;HY-14944;FK00226951;B5;50S ribosomal protein L2;60S ribosomal protein L3;approved, investigational;L23;5;8
+3657;Hydroxyurea;76.05;DMSO;10;HY-B0313;FK00226951;A4;Ribonucleoside-diphosphate reductase large subunit;NA;approved;L23;5;8
+11625818;Idelalisib;415.42;DMSO-warm;10;HY-13026;FK00226951;A3;Phosphatidylinositol 4,5-bisphosphate 3-kinase catalytic subunit delta isoform;NA;approved;L23;5;8
+104842;Irinotecan/SN-38;392.4;DMSO-warm;5;NA;NA;solo;DNA topoisomerase 1;NA;investigational;L23;5;8
+6445540;Ixabepilone;506.7;DMSO-warm;02. May;HY-10222;FK00226951;F3;Tubulin beta-3 chain;NA;approved, investigational;L23;5;8
+25183872;Ixazomib;361.03;DMSO;02. May;HY-10453;FK00226951;C3;NA;NA;approved, investigational;L23;5;8
+216326;Lenalidomide;259.26;DMSO;10;HY-A0003;FK00226951;E3;Protein cereblon;Tumor necrosis factor ligand superfamily member 11;approved;L23;5;8
+9823820;Lenvatinib;426.85;DMSO;10;HY-10981;FK00226951;B3;Vascular endothelial growth factor receptor 1;Vascular endothelial growth factor receptor 2;approved, investigational;L23;5;8
+46199207;LHD-221 / StemRegenin 1;429.5;DMSO-warm;10;HY-15001;FK00226951;A8;NA;NA;NA;L23;5;8
+57327016;Lurbinectedin;784.87;DMSO;02. May;HY-16293;FK00231611;G6;DNA;NA;approved, investigational;L23;5;8
+126941;Methotrexate;454.44;DMSO-warm;10;HY-14519;FK00231611;A6;Thymidylate synthase;Bifunctional purine biosynthesis protein PURH;approved;L23;5;8
+16224745;MK-8776 / SCH900776;376.25;DMSO;10;HY-15532;FK00231611;E4;NA;NA;NA;L23;5;8
+76953;MTIC;168.16;DMSO;10;HY-119696;FK00231611;F5;NA;NA;NA;L23;5;8
+24978538;Navitoclax;974.61;DMSO;0.5;HY-10087;FK00231611;E6;Apoptosis regulator Bcl-2;Bcl-2-like protein 2;investigational;L23;5;8
+24958200;Niraparib;320.39;DMSO;10;HY-10619;FK00231611;C6;Poly [ADP-ribose] polymerase 1;Poly [ADP-ribose] polymerase 2;approved, investigational;L23;5;8
+36314;Paclitaxel;853.91;DMSO;02. May;HY-B0015;FK00231611;B6;Tubulin beta-1 chain;Apoptosis regulator Bcl-2;approved, vet_approved;L23;5;8
+100427;Palifosfamide;221.02;DMSO;10;HY-14798;NA;NA;DNA (cytosine-5)-methyltransferase 1;NA;investigational;L23;5;8
+6918837;Panobinostat;349.43;DMSO;02. May;HY-10224;FK00231611;H5;Histone deacetylase;NA;approved, investigational;L23;5;8
+25151352;Pexidartinib;417.81;DMSO-warm;5;HY-16749;FK00231611;B5;Macrophage colony-stimulating factor 1 receptor;Mast/stem cell growth factor receptor Kit;approved, investigational;L23;5;8
+24826799;Ponatinib;532.56;DMSO-warm;5;HY-12047;FK00226951;G6;Tyrosine-protein kinase ABL1;Breakpoint cluster region protein;approved, investigational;L23;5;8
+77999;Rosiglitazone;357.4;DMSO;10;HY-17386;FK00226951;F6;Peroxisome proliferator-activated receptor gamma;Long-chain-fatty-acid--CoA ligase 4;approved, investigational;L23;5;8
+9931954;Rucaparib;421.36;DMSO;20;HY-10617A;FK00226951;D4;Poly [ADP-ribose] polymerase 1;Poly [ADP-ribose] polymerase 2;approved, investigational;L23;5;8
+25126798;Ruxolitinib;306.37;DMSO-warm;20;HY-50856;FK00226951;C5;Tyrosine-protein kinase JAK2;Tyrosine-protein kinase JAK1;approved;L23;5;8
+134436906;Selpercatinib;525.6;DMSO;10;HY-114370;FK00226951;C6;Proto-oncogene tyrosine-protein kinase receptor Ret;Vascular endothelial growth factor receptor 1;approved, investigational;L23;5;8
+10127622;Selumetinib;457.68;DMSO;12. May;HY-50706;FK00226951;C4;Dual specificity mitogen-activated protein kinase kinase 1;Dual specificity mitogen-activated protein kinase kinase 2;approved, investigational;L23;5;8
+29327;Streptozocin;265.22;DMSO-warm;10;HY-13753;FK00226951;H4;O-GlcNAcase BT_4395;DNA;approved, investigational;L23;5;8
+5329102;Sunitinib;398.47;DMSO;10;HY-10255A;FK00226951;H3;Platelet-derived growth factor receptor beta;Vascular endothelial growth factor receptor 1;approved, investigational;L23;5;8
+6918289;Temsirolimus;1030.29;DMSO;2;HY-50910;FK00226951;C7;Serine/threonine-protein kinase mTOR;NA;approved;L23;5;8
+51039094;Tucatinib;480.52;DMSO;5;HY-16069;FK00226951;H5;Receptor tyrosine-protein kinase erbB-2;Receptor tyrosine-protein kinase erbB-3;approved, investigational;L23;5;8
+3081361;Vandetanib;475.35;DMSO;10;HY-10260;FK00226951;E7;Vascular endothelial growth factor A;Epidermal growth factor receptor;approved;L23;5;8
+13342;Vinblastine;909.05;DMSO;0.5;S4505;Selleckchem - solo kauf;solo;Tubulin alpha-1A chain;Tubulin beta chain;approved;L23;5;8
+10461508;Volasertib;618.81;DMSO-warm;5;HY-12137;FK00226951;C9;Serine/threonine-protein kinase PLK1;NA;investigational;L23;5;8
+5311;Vorinostat;264.3;DMSO;20;HY-10221;FK00226951;B8;Histone deacetylase 1;Histone deacetylase 2;approved, investigational;L23;5;8
+3385;5-FU;130.08;DMSO;20;HY-90006;FK00226951;G11;DNA;RNA;approved;L23;5;0.0016
+46220502;Abemaciclib;506.59;DMSO;10;HY-16297A;FK00226951;H10;Cyclin-dependent kinase 4;Cyclin-dependent kinase 6;approved, investigational;L23;5;0.0016
+71226662;Acalabrutinib;465.51;DMSO;3;HY-17600;FK00231611;B3;Tyrosine-protein kinase BTK;NA;approved, investigational;L23;5;0.0016
+10184653;Afatinib;485.94;DMSO;20;HY-10261;FK00226951;C10;Epidermal growth factor receptor;Receptor tyrosine-protein kinase erbB-2;approved;L23;5;0.0016
+46843057;Afuresertib;427.3;DMSO-warm;3;HY-15727;FK00226951;E10;NA;NA;investigational;L23;5;0.0016
+49806720;Alectinib;482.62;DMSO;3;HY-13011;FK00231611;G2;ALK tyrosine kinase receptor;NA;approved, investigational;L23;5;0.0016
+56649450;Alpelisib;441.47;DMSO;10;HY-15244;FK00231611;F2;Phosphatidylinositol 4,5-bisphosphate 3-kinase catalytic subunit alpha isoform;NA;approved, investigational;L23;5;0.0016
+2123;Altretamine;210.28;DMSO;10;HY-B0181;FK00226951;A10;DNA;NA;approved;L23;5;0.0016
+6450551;Axitinib;386.47;DMSO;1;HY-10065;FK00231611;G3;Vascular endothelial growth factor receptor 1;Vascular endothelial growth factor receptor 2;approved, investigational;L23;5;0.0016
+51039095;AZD-4547;463.57;DMSO-warm;25;13111;Cayman Chemical;solo;NA;NA;investigational;L23;5;0.0016
+138911318;BI-3406;462.46;DMSO;10;HY-125817;FK00231611;D2;NA;NA;NA;L23;5;0.0016
+49836020;Birinapant;806.94;DMSO-warm;25;HY-16591;FK00228264;A2;NA;NA;investigational;L23;5;0.0016
+5360373;Bleomycin (sulfate);1512.62;DMSO/water;10;HY-17565;FK00228263;C2;DNA;DNA ligase 1;approved, investigational;L23;5;0.0016
+387447;Bortezomib;384.24;DMSO;0.5;HY-10227;FK00226951;E9;Proteasome subunit beta type-5;Proteasome subunit beta type-1;approved, investigational;L23;5;0.0016
+5328940;Bosutinib;530.45;DMSO;3;HY-10158;FK00231611;D3;Breakpoint cluster region protein;Tyrosine-protein kinase ABL1;approved;L23;5;0.0016
+68165256;Brigatinib;584.09;DMSO;2;HY-12857;FK00226951;G10;ALK tyrosine kinase receptor;Epidermal growth factor receptor;approved, investigational;L23;5;0.0016
+25227436;Capivasertib;428.92;DMSO;10;HY-15431;FK00231611;B2;NA;NA;investigational;L23;5;0.0016
+25145656;Capmatinib;412.42;DMSO;2;HY-13404;FK00231611;C2;Hepatocyte growth factor receptor;NA;approved, investigational;L23;5;0.0016
+3091786;CH-223191;333.4;DMSO;10;HY-12684;FK00226951;F10;NA;NA;NA;L23;5;0.0016
+16222096;Cobimetinib;531.31;DMSO-warm;10;HY-13064;FK00231611;H2;Dual specificity mitogen-activated protein kinase kinase 1;NA;approved, investigational;L23;5;0.0016
+44462760;Dabrafenib;519.56;DMSO-warm;5;HY-14660;FK00226951;C8;Serine/threonine-protein kinase B-raf;RAF proto-oncogene serine/threonine-protein kinase;approved, investigational;L23;5;0.0016
+11511120;Dacomitinib;469.94;DMSO;10;HY-13272;FK00226951;F8;Epidermal growth factor receptor;NA;approved, investigational;L23;5;0.0016
+457193;Dactinomycin / Actinomycin D;1255.42;DMSO;10;A0977;LKT Laboratories;NA;DNA;DNA topoisomerase 2;approved, investigational;L23;5;0.0016
+25117126;Defactinib;510.49;DMSO;10;HY-12289;FK00226951;C11;NA;NA;investigational;L23;5;0.0016
+89683805;Enasidenib;473.38;DMSO;10;HY-18690;FK00226951;D8;Isocitrate dehydrogenase [NADP], mitochondrial;NA;approved, investigational;L23;5;0.0016
+50922675;Encorafenib;540.01;DMSO;10;HY-15605;FK00226951;E11;Serine/threonine-protein kinase B-raf;G1/S-specific cyclin-D1;approved, investigational;L23;5;0.0016
+25141092;Entrectinib;560.64;DMSO;10;HY-12678;FK00226951;B10;High affinity nerve growth factor receptor;NT-3 growth factor receptor;approved, investigational;L23;5;0.0016
+41867;Epirubicin;579.98;DMSO;10;S1223;Selleckchem - solo kauf;solo;DNA;DNA topoisomerase 2-alpha;approved;L23;5;0.0016
+67462786;Erdafitinib;446.54;DMSO;20;HY-18708;FK00226951;B11;Fibroblast growth factor receptor 1;Fibroblast growth factor receptor 2;approved, investigational;L23;5;0.0016
+176870;Erlotinib;393.44;DMSO;20;HY-50896;FK00226951;F9;Nuclear receptor subfamily 1 group I member 2;Epidermal growth factor receptor;approved, investigational;L23;5;0.0016
+86280523;ETC-159;391.4;DMSO;10;HY-18988;FK00231611;A2;NA;NA;NA;L23;5;0.0016
+36462;Etoposide;588.56;DMSO;10;HY-13629;FK00231611;A3;DNA topoisomerase 2-alpha;DNA topoisomerase 2-beta;approved;L23;5;0.0016
+44516953;Gedatolisib;615.73;DMSO;5;HY-10681;FK00226951;B4;NA;NA;investigational;L23;5;0.0016
+123631;Gefitinib;446.9;DMSO-warm;10;HY-50895;FK00226951;E2;Epidermal growth factor receptor;NA;approved, investigational;L23;5;0.0016
+60750;Gemcitabine;263.2;DMSO;12. May;HY-17026;FK00226951;A6;DNA;Ribonucleoside-diphosphate reductase large subunit;approved;L23;5;0.0016
+49803313;Gilteritinib;552.71;DMSO;10;HY-12432;FK00226951;B2;Receptor-type tyrosine-protein kinase FLT3;Tyrosine-protein kinase receptor UFO;approved, investigational;L23;5;0.0016
+25166913;Glasdegib;374.44;DMSO;10;HY-16391;FK00226951;H2;Smoothened homolog;NA;approved, investigational;L23;5;0.0016
+68210102;GSK126;526.7;DMSO;10;HY-13470;FK00226951;G2;NA;NA;NA;L23;5;0.0016
+285033;Homoharringtonine;545.62;DMSO;10;HY-14944;FK00226951;B5;50S ribosomal protein L2;60S ribosomal protein L3;approved, investigational;L23;5;0.0016
+3657;Hydroxyurea;76.05;DMSO;10;HY-B0313;FK00226951;A4;Ribonucleoside-diphosphate reductase large subunit;NA;approved;L23;5;0.0016
+11625818;Idelalisib;415.42;DMSO-warm;10;HY-13026;FK00226951;A3;Phosphatidylinositol 4,5-bisphosphate 3-kinase catalytic subunit delta isoform;NA;approved;L23;5;0.0016
+104842;Irinotecan/SN-38;392.4;DMSO-warm;5;NA;NA;solo;DNA topoisomerase 1;NA;investigational;L23;5;0.0016
+6445540;Ixabepilone;506.7;DMSO-warm;02. May;HY-10222;FK00226951;F3;Tubulin beta-3 chain;NA;approved, investigational;L23;5;0.0016
+25183872;Ixazomib;361.03;DMSO;02. May;HY-10453;FK00226951;C3;NA;NA;approved, investigational;L23;5;0.0016
+216326;Lenalidomide;259.26;DMSO;10;HY-A0003;FK00226951;E3;Protein cereblon;Tumor necrosis factor ligand superfamily member 11;approved;L23;5;0.0016
+9823820;Lenvatinib;426.85;DMSO;10;HY-10981;FK00226951;B3;Vascular endothelial growth factor receptor 1;Vascular endothelial growth factor receptor 2;approved, investigational;L23;5;0.0016
+46199207;LHD-221 / StemRegenin 1;429.5;DMSO-warm;10;HY-15001;FK00226951;A8;NA;NA;NA;L23;5;0.0016
+57327016;Lurbinectedin;784.87;DMSO;02. May;HY-16293;FK00231611;G6;DNA;NA;approved, investigational;L23;5;0.0016
+126941;Methotrexate;454.44;DMSO-warm;10;HY-14519;FK00231611;A6;Thymidylate synthase;Bifunctional purine biosynthesis protein PURH;approved;L23;5;0.0016
+16224745;MK-8776 / SCH900776;376.25;DMSO;10;HY-15532;FK00231611;E4;NA;NA;NA;L23;5;0.0016
+76953;MTIC;168.16;DMSO;10;HY-119696;FK00231611;F5;NA;NA;NA;L23;5;0.0016
+24978538;Navitoclax;974.61;DMSO;0.5;HY-10087;FK00231611;E6;Apoptosis regulator Bcl-2;Bcl-2-like protein 2;investigational;L23;5;0.0016
+24958200;Niraparib;320.39;DMSO;10;HY-10619;FK00231611;C6;Poly [ADP-ribose] polymerase 1;Poly [ADP-ribose] polymerase 2;approved, investigational;L23;5;0.0016
+36314;Paclitaxel;853.91;DMSO;02. May;HY-B0015;FK00231611;B6;Tubulin beta-1 chain;Apoptosis regulator Bcl-2;approved, vet_approved;L23;5;0.0016
+100427;Palifosfamide;221.02;DMSO;10;HY-14798;NA;NA;DNA (cytosine-5)-methyltransferase 1;NA;investigational;L23;5;0.0016
+6918837;Panobinostat;349.43;DMSO;02. May;HY-10224;FK00231611;H5;Histone deacetylase;NA;approved, investigational;L23;5;0.0016
+25151352;Pexidartinib;417.81;DMSO-warm;5;HY-16749;FK00231611;B5;Macrophage colony-stimulating factor 1 receptor;Mast/stem cell growth factor receptor Kit;approved, investigational;L23;5;0.0016
+24826799;Ponatinib;532.56;DMSO-warm;5;HY-12047;FK00226951;G6;Tyrosine-protein kinase ABL1;Breakpoint cluster region protein;approved, investigational;L23;5;0.0016
+77999;Rosiglitazone;357.4;DMSO;10;HY-17386;FK00226951;F6;Peroxisome proliferator-activated receptor gamma;Long-chain-fatty-acid--CoA ligase 4;approved, investigational;L23;5;0.0016
+9931954;Rucaparib;421.36;DMSO;20;HY-10617A;FK00226951;D4;Poly [ADP-ribose] polymerase 1;Poly [ADP-ribose] polymerase 2;approved, investigational;L23;5;0.0016
+25126798;Ruxolitinib;306.37;DMSO-warm;20;HY-50856;FK00226951;C5;Tyrosine-protein kinase JAK2;Tyrosine-protein kinase JAK1;approved;L23;5;0.0016
+134436906;Selpercatinib;525.6;DMSO;10;HY-114370;FK00226951;C6;Proto-oncogene tyrosine-protein kinase receptor Ret;Vascular endothelial growth factor receptor 1;approved, investigational;L23;5;0.0016
+10127622;Selumetinib;457.68;DMSO;12. May;HY-50706;FK00226951;C4;Dual specificity mitogen-activated protein kinase kinase 1;Dual specificity mitogen-activated protein kinase kinase 2;approved, investigational;L23;5;0.0016
+29327;Streptozocin;265.22;DMSO-warm;10;HY-13753;FK00226951;H4;O-GlcNAcase BT_4395;DNA;approved, investigational;L23;5;0.0016
+5329102;Sunitinib;398.47;DMSO;10;HY-10255A;FK00226951;H3;Platelet-derived growth factor receptor beta;Vascular endothelial growth factor receptor 1;approved, investigational;L23;5;0.0016
+6918289;Temsirolimus;1030.29;DMSO;2;HY-50910;FK00226951;C7;Serine/threonine-protein kinase mTOR;NA;approved;L23;5;0.0016
+51039094;Tucatinib;480.52;DMSO;5;HY-16069;FK00226951;H5;Receptor tyrosine-protein kinase erbB-2;Receptor tyrosine-protein kinase erbB-3;approved, investigational;L23;5;0.0016
+3081361;Vandetanib;475.35;DMSO;10;HY-10260;FK00226951;E7;Vascular endothelial growth factor A;Epidermal growth factor receptor;approved;L23;5;0.0016
+13342;Vinblastine;909.05;DMSO;0.5;S4505;Selleckchem - solo kauf;solo;Tubulin alpha-1A chain;Tubulin beta chain;approved;L23;5;0.0016
+10461508;Volasertib;618.81;DMSO-warm;5;HY-12137;FK00226951;C9;Serine/threonine-protein kinase PLK1;NA;investigational;L23;5;0.0016
+5311;Vorinostat;264.3;DMSO;20;HY-10221;FK00226951;B8;Histone deacetylase 1;Histone deacetylase 2;approved, investigational;L23;5;0.0016
+;DMSO (-);;;;;;;Control;;;L23;;
+;DMSO (-);;;;;;;Control;;;L23;;
+;DMSO (-);;;;;;;Control;;;L23;;
+;DMSO (-);;;;;;;Control;;;L23;;
+;DMSO (-);;;;;;;Control;;;L23;;
+;DMSO (-);;;;;;;Control;;;L23;;
+;DMSO (-);;;;;;;Control;;;L23;;
+;DMSO (-);;;;;;;Control;;;L23;;
+;DMSO (-);;;;;;;Control;;;L23;;
+;DMSO (-);;;;;;;Control;;;L23;;
+;DMSO (-);;;;;;;Control;;;L23;;
+;DMSO (-);;;;;;;Control;;;L23;;
+;DMSO (-);;;;;;;Control;;;L23;;
+;DMSO (-);;;;;;;Control;;;L23;;
+;DMSO (-);;;;;;;Control;;;L23;;
+;DMSO (-);;;;;;;Control;;;L23;;
+;DMSO (-);;;;;;;Control;;;L23;;
+;DMSO (-);;;;;;;Control;;;L23;;
+;DMSO (-);;;;;;;Control;;;L23;;
+;DMSO (-);;;;;;;Control;;;L23;;
+;DMSO (-);;;;;;;Control;;;L23;;
+;DMSO (-);;;;;;;Control;;;L23;;
+;DMSO (-);;;;;;;Control;;;L23;;
+;DMSO (-);;;;;;;Control;;;L23;;
+;Bortezomib (+);;;;;;;Control;;;L23;;
+;Bortezomib (+);;;;;;;Control;;;L23;;
+;Bortezomib (+);;;;;;;Control;;;L23;;
+;Bortezomib (+);;;;;;;Control;;;L23;;
+;Bortezomib (+);;;;;;;Control;;;L23;;
