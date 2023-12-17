@@ -1,10 +1,6 @@
 #!/usr/bin/env python
 
-import csv
-import pandas as pd
-import numpy as np
 import argparse
-import logging as lg
 
 import randplate as rp
 
@@ -25,17 +21,17 @@ def main():
     parser.add_argument('--log', '-l', action="store", default="INFO")
     args = parser.parse_args()
 
-    rp.utils.init_log(args.log)
+    rp.utils.init_logger(args.log)
 
     # 1. Read in input files
     plate = rp.Plate(args.plate)
     plate.print()
 
-    drug_list = rp.DrugList(args.drug_list)
+    drug_list = rp.DrugList(args.drug_list, plate)
     drug_list.print()
 
-    # 2. Calculate random distributions of each mechanism
-    rp.utils.calc_dist(plate, drug_list)
+    # 2. Calculate random distributions of each mechanism 
+    drug_list.calculate_disributions()
 
 
 
