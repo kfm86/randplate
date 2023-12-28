@@ -6,13 +6,14 @@ import numpy as np
 
 
 PRINT_HDR_WD=80
+POS_COL_NAME='pos'
 
 DEBUG=True
 
-def print_sep():
+def print_sep() -> str:
     return("="*PRINT_HDR_WD)
 
-def list_df_items(plate_layout):
+def list_df_items(plate_layout: pd.DataFrame) -> list:
     my_list = []
     for row in range(plate_layout.shape[0]):
         for col in range(plate_layout.shape[1]):
@@ -20,37 +21,16 @@ def list_df_items(plate_layout):
             my_list.append(plate_layout.iat[row,col])
     return my_list
 
-def init_logger(level):
+def init_logger(level: int) -> None:
     lg.getLogger().setLevel(level)
 
-def log_lvl():
+def log_lvl() -> int:
     return lg.getLogger().getEffectiveLevel()
 
-#
-# assigned_coords -> Plate
-# df -> dataframe of drugs to position
-#       for each drug, we need to generate a position on the assigned_coords Plate
-#       we assume this dataframe has already been randomised, and can therefore assign them
-#       row and column indices, up to the shape of assigned_coords
-# goal -> how many each (row,column) should have on average
-#
-# The generated coordinates are stored in assigned_coords object. 
-# No return value.
-def generate_coordinates(assigned_coords, df, goal):
-    rows = assigned_coords.shape[0]
-    cols = assigned_coords.shape[1]
-
-    row_indices = gen_single_axis_index_list(rows, goal[0], len(df))
-    col_indices = gen_single_axis_index_list(cols, goal[1], len(df))
-
-    lg.debug(f"row_indices[{len(row_indices)}]: {row_indices}")
-    lg.debug(f"col_indices:[{len(col_indices)}] {col_indices}")
-
-    assigned_coords.store(row_indices, col_indices)
 
 
-
-def gen_single_axis_index_list(num_items, goal, len_df):
+def gen_single_axis_index_list(num_items: int, goal: float, len_df: int) -> list:
+    """Generate a random list of indices (num_items long) for a single axis, with average {goal} per column/row assigned"""
     indices = []
     cur_col = 0
     indices_per_row = int(goal)
@@ -72,4 +52,20 @@ def gen_single_axis_index_list(num_items, goal, len_df):
     return indices
 
 
+def row_as_str(row_as_int: int) -> str:
+    """Awful way to convert a plate's row letter int to corresponding string"""
+    table = {0: 'A', 1: 'B', 2: 'C', 3: 'D', 4: 'E', 5: 'F', 6: 'G', 7: 'H', 8: 'I', 9: 'J', 10: 'K', 11: 'L', 12: 'M', 13: 'N', 14: 'O', 15: 'P', 16: 'Q', 17: 'R', 18: 'S', 19: 'T', 20: 'U', 21: 'V', 22: 'W', 23: 'Y', 24: 'X', 25: 'Z'}
+    return table[row_as_int]
+
+
+def combine_coord_lists(rows: list, cols: list) -> list:
+    if len(rows) != len(cols):
+        raise ValueError("Can only combine lists of same lengths")
+    
+    out = []
+    for i in range(len(rows)):
+        out.append(f"{row_as_str(rows[i])}{cols[i]+1:02d}")
+    return out
+
+    
     

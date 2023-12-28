@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import argparse
 
@@ -31,11 +31,8 @@ def main():
     drug_list.print()
 
     # 2. Calculate random distributions of each mechanism 
-    drug_list.calculate_disributions()
+    results = drug_list.calculate_disributions()
 
-
-
-    # 3. Turn into histograms
 
     # 4. Print/save output
 
