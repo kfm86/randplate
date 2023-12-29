@@ -18,8 +18,8 @@ class Well:
             self.row=ord(self.row)
             self.col=int(self.col)
 
-    def distance(self, w2):
-        return (w2.row-self.row, w2.col-self.col)
+    def distance(self, row, col):
+        return (row-self.row, col-self.col)
 
     def print(self):
         print(f"{self.ident}: r={self.row}c={self.col}")

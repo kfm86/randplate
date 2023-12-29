@@ -21,36 +21,41 @@ class DrugList:
         msg = f"\n{rp.utils.print_sep()}\nAssigning drugs:\n{self.drugs}\n{rp.utils.print_sep()}"
         lg.log(level, msg)
 
+
+    # Called from main
     def calculate_disributions(self) -> rp.Plate:
         """Calculate the well-position for each drug listed in the input file."""
         lg.debug("Calculating distributions...")
 
+        # 1. Split self.drugs (pd.DataFrame) by value of primary_target column i.e. to group by primary target
         num_targets = self.drugs.primary_target.value_counts()
         msg = f"\n{rp.utils.print_sep()}\nUsing the following primary target mechanisms:\n{num_targets}\n"
         lg.info(msg)
 
-        controls = self.drugs.query("primary_target == 'Control'")
-        msg = f"Using {len(controls)} controls"
-        lg.debug(msg)
+        # controls = self.drugs.query("primary_target == 'Control'")
+        # msg = f"Using {len(controls)} controls"
+        # lg.debug(msg)
         
         # use following for grouping
         # for group in self.drugs.groupby(['primary_target']):
         #     print(group.)
 
-        # generate the list of positions for each group
+        # 2. Generate the list of positions for each group
+
+        # Start with DNA for ease...
 
         dna_targetting = self.calc_("DNA")
-        print(dna_targetting)
+        #print(dna_targetting)
 
 
         # what to do with results?
-        # each group's dataframe should be returned, or better: the calculated positions should be combined into a list and added to self.plate
+        # each group's dataframe should be returned, or maybe: the calculated positions should be combined into a list and added to self.plate
         # then self.plate is returned
         return self.plate
 
 
     def calc_(self, primary_target: str) -> pd.DataFrame:
-        """Calculate positions for a primary target group"""
+        """Calculate positions for a primary target group. Outputs a dataframe with new pos, col, and row columns."""
         goal = self.drugs.query(f'primary_target == "{primary_target}"').shape[0]
         goal = (goal/self.plate.shape[0], goal/self.plate.shape[1])
         

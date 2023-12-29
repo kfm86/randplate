@@ -4,7 +4,7 @@ import randplate as rp
 
 class Coordinates:
     """Class to handle two lists of column and row indices and store them in a plate."""
-    def __init__(self, plate):
+    def __init__(self, plate: rp.Plate):
         self.plate = plate
         self.rows = self.plate.shape[0]
         self.cols = self.plate.shape[1]
