@@ -54,17 +54,16 @@ class Plate:
         msg = f"\n{rp.utils.print_sep()}\nPlate {self.filename}:\n{df}\n[{self.rows} rows x {self.cols} columns]\n{rp.utils.print_sep()}"
         lg.log(level, msg)
 
-    def store(self, row_indices: list, col_indices: list, group: str) -> None:
+    def store(self, drug_group: pd.DataFrame, group: str) -> None:
         """Store the coordinates obtained from combining the two lists of row and col indices."""
         # if len(row_indices != self.rows):
         #     raise ValueError("len(row_indices) != self.rows")
         # if len(col_indices != self.cols):
         #     raise ValueError("len(col_indices) !+ self.cols")
-        if len(row_indices) != len(col_indices):
-            raise ValueError(f"row ({len(row_indices)}) and col ({len(col_indices)}) lengths must be equal")
-        for i in range(len(row_indices)):
-            self.plate.iloc[row_indices[i], col_indices[i]].assigned = True
-            self.plate.iloc[row_indices[i], col_indices[i]].group = group
+        for i in drug_group.index:
+            print(f"&&&i={i} rp.utils.row_as_str(drug_group.loc[i,'row']), drug_group.loc[i,'col']:\n{rp.utils.row_as_str(drug_group.loc[i,'row'])},{drug_group.loc[i,'col']}")
+            self.plate.at[rp.utils.row_as_str(drug_group.at[i,'row']), drug_group.at[i,'col']].assigned = True
+            self.plate.at[rp.utils.row_as_str(drug_group.at[i,'row']), drug_group.at[i,'col']].group = group
         self.print(logging.INFO, True)
     
 
@@ -77,73 +76,76 @@ class Plate:
     # The generated coordinates are stored in assigned_coords object. 
     # Returns a pd.Dataframe (modified from input df).
     def generate_coordinates(self, drug_group: pd.DataFrame, goal: (float, float), group_name: str) -> pd.DataFrame:
+        ROWS = "row"
+        COLS = "col"
+        REDO = "redo"
         """Generate the position matrix for the items in a target group."""
         # Generate two lists of integers: indices of row,col. Together they make coordinates.
         # The coordinates will be added to df as a new column: pos
 
         num_rows = self.plate.shape[0]
         num_cols = self.plate.shape[1]
-        row_indices = []
-        col_indices = []
 
-        # 1. Generate list of row indices. These should not already be assigned.
-        redo = [True] * len(drug_group)
-        while any(redo):
+
+        # 1. Copy drug_group dataframe and generate row indices
+        df = drug_group
+        df[REDO] = [True] * len(drug_group)
+        while any(df[REDO]):
             # 1.1 get a list of row numbers for each row in df
-            row_indices = rand.choices(list(range(num_rows)), k=len(drug_group))
+            df[ROWS] = rand.choices(list(range(num_rows)), k=len(drug_group))
             # 1.2 for each item in list, check that there are enough free spaces in that row
-            for i in range(len(drug_group)):
-                row = row_indices[i]
+            for i in range(len(df)):
+                row = df[ROWS].iloc[i]
                 num_assigned_to_row = 0
                 for col in range(num_cols):
                     if self.is_assigned(row,col):
                         num_assigned_to_row += 1
                 #print(f"{row}: {num_assigned}")
                 if num_assigned_to_row >= num_cols:
-                    redo[i]=True
+                    df[REDO].iloc[i] = True
                 else:
-                    redo[i]=False
-            print("Redo:",redo)
-                #all assigned, need to redo this index.
+                    df[REDO].iloc[i] = False
+            print("Redo:",df[REDO])
+            #all assigned, need to redo this index.
 
-        # 2. get a list of column numbers 
         #col_indices = rp.utils.gen_single_axis_index_list(num_cols, goal[1], len(drug_group))
-        df = pd.DataFrame({"indices":rand.choices(list(range(num_cols)), k=len(drug_group)), 
-                           "redo": [True] * len(drug_group)})
         start_time = time.time()
-        while any(df.redo):
-            positions = rp.utils.combine_coord_lists(row_indices, df.indices)
-            # 2.1. get a list of column numbers for each row in df.
-            # 2.2. for each item in list, check that there are enough free spaces in that row
+        df[REDO] = [True] * len(drug_group)
+        # 2. get a list of column numbers 
+        df[COLS] = rand.choices(list(range(1, num_cols)), k=len(df))
+        while any(df[REDO]):
+            # 2.1. for each position, check that there are enough free spaces in that row
+            df['position'] = rp.utils.combine_coord_lists(df[ROWS].to_list(), df[COLS].to_list())
             touching_positions = []
-            for i in range(len(drug_group)):
-                col = df.indices.iloc[i]
-                num_assigned_to_row = 0
-                for row in range(num_rows):
-                    if self.is_assigned(row,col):
-                        num_assigned_to_row += 1
+            for i in df.index:
+                # col = df.loc[i, COLS]
+                # num_assigned_to_row = 0
+                # for row in range(num_rows):
+                #     if self.is_assigned(row,col):
+                #         num_assigned_to_row += 1
                 #print(f"{row}: {num_assigned}")
                 #TODO: is this comparison correct?
                 if num_assigned_to_row >= num_rows:
                     lg.debug(f"Too many wells assigned to row {row}: recalc #{i}")
-                    df.redo.iloc[i] = True
+                    df.loc[i, REDO] = True
                     continue
                 # 2.3. for each item in list, check it is not touching any of same primary_target
                 # TODO if pos1 touches pos2, only add pos1, not pos2
                 # TODO check there are enough free wells to achieve this
                 touching = False
-                for pos in positions:
-                    if is_touching(pos, positions[i]) and pos != positions[i] and positions[i] not in touching_positions:
-                        lg.debug(f"Positions touching: {pos}-{positions[i]} => recalc #{i}")
+                for pos in df['position']:
+                    if is_touching(pos, df.loc[i,'position']) and pos != df.loc[i,'position'] and df.loc[i,'position'] not in touching_positions and pos not in touching_positions:
+                        lg.debug(f"Positions touching: {pos}-{df.loc[i,'position']} => recalc #{i}/{pos}")
                         touching = True
-                        touching_positions.append(pos)
+                        touching_positions.append(df.loc[i,'position'])
+                print(f"{i}: touching positions = {touching_positions} touching={touching}")
                 if touching:
-                    df.redo.iloc[i] = True
+                    df.loc[i, REDO] = True
                     continue
-
                 # if we haven't found a reason not to, mark this position as OK
-                df.redo.iloc[i] = False
-            print(df)
+                df.loc[i, REDO] = False
+
+            #print(df)
             # print([i for i in redo if i == True])
             # num_redo = len([i for i in redo if i == True])
 
@@ -152,48 +154,58 @@ class Plate:
 
             # for the wells that need recalculation, remove them and redistribute
             #TODO Check for all columns being the same => same as len()==1
-            redo = df[df.redo]
-            if len(redo) == 0:
+            #redo = df[df[REDO]]
+            #print(redo)
+            if len(touching_positions) == 0:
+                drug_group[ROWS] = df[ROWS]
+                drug_group[COLS] = df[COLS]
                 continue # hooray
-            elif len(redo) == 1:
+            elif len(touching_positions) == 1:
                 # need to allow more wells into the list or we get a deadlock
-                print(f"="*80,"\nredo:\n",redo)
-                #print(redo.indices)
-                orig_col = redo.indices
+                print(f"="*80,"\nredoing rows:\n",df[df[REDO]])
+                #print(redo[REDO])
+                #redo = df[df[REDO]]
+                #orig_col = [REDO]
                 print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
-                print(f"orig_col={orig_col}({type(orig_col)}) redo.indices={redo.indices}({type(redo.indices)})")
-                while redo.indices == orig_col:
-                    redo.indices = int(num_cols * rand.random())
-                    print(f"new => {redo.indices}")
+                for i in df[df[REDO]].index:
+                    while df.at[i,REDO]:
+                        old_val = df.at[i,COLS]
+                        df.at[i,COLS] = 1 + int(rand.random() * num_cols)
+                        df.at[i,REDO] = old_val == df.at[i,COLS]
+
             
             else:
-                cols = list(redo.indices)
-                rand.shuffle(cols)
-                #print(f"cols={cols}")
-                redo.indices = cols
+                print(f"&&& len(touching_positions)={len(touching_positions)}")
+                for i in df[df[REDO]].index:
+                    old_val = df.loc[i,COLS]
+                    df.loc[i,COLS] = int(rand.random() * num_cols)
+                    print(f"i={i}: replaced {old_val} with {df.loc[i,COLS]}")
 
-            # for each row in df, if redo==True, replace its indices column value with the next value in cols
-            for i in redo.index:
-                df.loc[i] = redo.loc[i]
+                #pd.merge(df, redo, how='right', on=COLS)
+                
+
+            print(df)
 
 
 
             if time.time() - start_time > TIMEOUT:
                 lg.error("Failed to converge on solution. Using current best attempt...")
+                drug_group[ROWS] = df[ROWS]
+                drug_group[COLS] = df[COLS]
                 break
 
             
 
         lg.info(f"Finished group {group_name}...")
 
-        #print(f"&&& len(row_indices)={len(row_indices)} len(df.indices)={len(df.indices)}")
+        #print(f"&&& len(df[ROWS])={len(df[ROWS])} len(df[COLS])={len(df[COLS])}")
 
         # 3. Combine these to get a single list of coordinates. Add this as a new column to df.
         #    Store this list in self, so these positions are marked as assigned.
-        positions = rp.utils.combine_coord_lists(row_indices, df.indices)
+        positions = rp.utils.combine_coord_lists(df[ROWS].to_list(), df[COLS].to_list())
         #lg.debug(f"positions[{len(positions)}]: {positions}")
 
-        self.store(row_indices, df.indices, group_name)
+        self.store(drug_group, group_name)
 
         return drug_group
 

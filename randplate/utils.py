@@ -30,7 +30,7 @@ def init_logger(level: int) -> None:
     ch.setLevel(logging.DEBUG)
 
     # create formatter
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    formatter = logging.Formatter('%(asctime)s(%(levelname)s): %(message)s')
 
     # add formatter to ch
     ch.setFormatter(formatter)
@@ -86,7 +86,7 @@ def combine_coord_lists(rows: list, cols: list) -> list:
     
     out = []
     for i in range(len(rows)):
-        out.append(f"{row_as_str(rows[i])}{cols[i]+1:02d}")
+        out.append(f"{row_as_str(rows[i]+1)}{cols[i]+1:02d}")
     return out
 
 def split_str_coord(coord: str) -> (int, int):
