@@ -1,8 +1,14 @@
 import pandas as pd
-import logging as lg
+pd.options.mode.chained_assignment = None  # default='warn'
+import logging
 import random as rand
+import time
 
 import randplate as rp
+
+lg = logging.getLogger('randplate')
+
+TIMEOUT = 1
 
 def well_list(names):
     my_list = []
@@ -40,7 +46,7 @@ class Plate:
             #print(plate.loc[row])
 
 
-    def print(self, level: int = lg.DEBUG, transpose: bool = False) -> None:
+    def print(self, level: int = logging.DEBUG, transpose: bool = False) -> None:
         """'Nicely' print plate layout, with target group names"""
         df = self.plate
         if transpose:
@@ -55,11 +61,11 @@ class Plate:
         # if len(col_indices != self.cols):
         #     raise ValueError("len(col_indices) !+ self.cols")
         if len(row_indices) != len(col_indices):
-            raise ValueError("row and col indices must be equal")
+            raise ValueError(f"row ({len(row_indices)}) and col ({len(col_indices)}) lengths must be equal")
         for i in range(len(row_indices)):
             self.plate.iloc[row_indices[i], col_indices[i]].assigned = True
             self.plate.iloc[row_indices[i], col_indices[i]].group = group
-        self.print(lg.INFO, True)
+        self.print(logging.INFO, True)
     
 
     # assigned_coords -> Plate
@@ -84,16 +90,16 @@ class Plate:
         redo = [True] * len(drug_group)
         while any(redo):
             # 1.1 get a list of row numbers for each row in df
-            row_indices = rp.utils.gen_single_axis_index_list(num_rows, goal[0], len(drug_group))
+            row_indices = rand.choices(list(range(num_rows)), k=len(drug_group))
             # 1.2 for each item in list, check that there are enough free spaces in that row
             for i in range(len(drug_group)):
                 row = row_indices[i]
-                num_assigned = 0
+                num_assigned_to_row = 0
                 for col in range(num_cols):
                     if self.is_assigned(row,col):
-                        num_assigned += 1
+                        num_assigned_to_row += 1
                 #print(f"{row}: {num_assigned}")
-                if num_assigned >= num_cols:
+                if num_assigned_to_row >= num_cols:
                     redo[i]=True
                 else:
                     redo[i]=False
@@ -101,61 +107,93 @@ class Plate:
                 #all assigned, need to redo this index.
 
         # 2. get a list of column numbers 
-        col_indices = rp.utils.gen_single_axis_index_list(num_cols, goal[1], len(drug_group))
-        redo = [True] * len(drug_group)
-        while any(redo):
-            rand.shuffle(col_indices)
-            positions = rp.utils.combine_coord_lists(row_indices, col_indices)
+        #col_indices = rp.utils.gen_single_axis_index_list(num_cols, goal[1], len(drug_group))
+        df = pd.DataFrame({"indices":rand.choices(list(range(num_cols)), k=len(drug_group)), 
+                           "redo": [True] * len(drug_group)})
+        start_time = time.time()
+        while any(df.redo):
+            positions = rp.utils.combine_coord_lists(row_indices, df.indices)
             # 2.1. get a list of column numbers for each row in df.
             # 2.2. for each item in list, check that there are enough free spaces in that row
+            touching_positions = []
             for i in range(len(drug_group)):
-                col = col_indices[i]
-                num_assigned = 0
+                col = df.indices.iloc[i]
+                num_assigned_to_row = 0
                 for row in range(num_rows):
                     if self.is_assigned(row,col):
-                        num_assigned += 1
+                        num_assigned_to_row += 1
                 #print(f"{row}: {num_assigned}")
                 #TODO: is this comparison correct?
-                if num_assigned >= num_rows:
-                    print(f"&&& redo[{i}]=True")
-                    # redo[i]=True
+                if num_assigned_to_row >= num_rows:
+                    lg.debug(f"Too many wells assigned to row {row}: recalc #{i}")
+                    df.redo.iloc[i] = True
                     continue
-                redo[i] = False
                 # 2.3. for each item in list, check it is not touching any of same primary_target
-                # this is in the same list!
-                # if positions[i] is touching any other placed item, it should be moved.
-                # start with positions[i]
-                # loop through the rest
-                # calculate the distance
-                # if touching, redo[i]=True
+                # TODO if pos1 touches pos2, only add pos1, not pos2
+                # TODO check there are enough free wells to achieve this
+                touching = False
                 for pos in positions:
-                    #print(f"&&& pos={pos}({type(pos)}) posisions[{i}]={positions[i]}({type(positions[i])}) ")
-                    if is_touching(positions[i], pos) and pos != positions[i]:
-                        print(f"Positions touching: {pos}-{positions[i]} => redo[{i}]=True")
-                        redo[i] = True
-                        #print (redo)
-            num_redo = len([i for i in redo if i == True])
+                    if is_touching(pos, positions[i]) and pos != positions[i] and positions[i] not in touching_positions:
+                        lg.debug(f"Positions touching: {pos}-{positions[i]} => recalc #{i}")
+                        touching = True
+                        touching_positions.append(pos)
+                if touching:
+                    df.redo.iloc[i] = True
+                    continue
+
+                # if we haven't found a reason not to, mark this position as OK
+                df.redo.iloc[i] = False
+            print(df)
+            # print([i for i in redo if i == True])
+            # num_redo = len([i for i in redo if i == True])
+
+            # check here for only one well needing redistribution.
+            # otherwise, we get into a deadlock where only two touching 
+
+            # for the wells that need recalculation, remove them and redistribute
+            #TODO Check for all columns being the same => same as len()==1
+            redo = df[df.redo]
+            if len(redo) == 0:
+                continue # hooray
+            elif len(redo) == 1:
+                # need to allow more wells into the list or we get a deadlock
+                print(f"="*80,"\nredo:\n",redo)
+                #print(redo.indices)
+                orig_col = redo.indices
+                print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+                print(f"orig_col={orig_col}({type(orig_col)}) redo.indices={redo.indices}({type(redo.indices)})")
+                while redo.indices == orig_col:
+                    redo.indices = int(num_cols * rand.random())
+                    print(f"new => {redo.indices}")
+            
+            else:
+                cols = list(redo.indices)
+                rand.shuffle(cols)
+                #print(f"cols={cols}")
+                redo.indices = cols
+
+            # for each row in df, if redo==True, replace its indices column value with the next value in cols
+            for i in redo.index:
+                df.loc[i] = redo.loc[i]
+
+
+
+            if time.time() - start_time > TIMEOUT:
+                lg.error("Failed to converge on solution. Using current best attempt...")
+                break
 
             
-            redo_wells = [col_indices[i] for i in range(len(redo)) if redo[i]]
-            print(f"wells to redo: {num_redo}: {redo_wells}")
-            # take the wells to redo
-            # calc which ones need to be redone (if A1 and A2 are touching, only one of them must move)
-            # split those coordinates into row/col, shuffle the cols, reform coords
-            # check if any are touching
 
-                
-                
+        lg.info(f"Finished group {group_name}...")
 
-
-        print(f"&&& len(row_indices)={len(row_indices)} len(col_indices)={len(col_indices)}")
+        #print(f"&&& len(row_indices)={len(row_indices)} len(df.indices)={len(df.indices)}")
 
         # 3. Combine these to get a single list of coordinates. Add this as a new column to df.
         #    Store this list in self, so these positions are marked as assigned.
-        positions = rp.utils.combine_coord_lists(row_indices, col_indices)
-        lg.debug(f"positions[{len(positions)}]: {positions}")
+        positions = rp.utils.combine_coord_lists(row_indices, df.indices)
+        #lg.debug(f"positions[{len(positions)}]: {positions}")
 
-        self.store(row_indices, col_indices, group_name)
+        self.store(row_indices, df.indices, group_name)
 
         return drug_group
 

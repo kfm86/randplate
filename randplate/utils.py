@@ -1,9 +1,8 @@
-import logging as lg
+import logging
 import random
 import re
 
 import pandas as pd
-import numpy as np 
 
 
 PRINT_HDR_WD=80
@@ -23,10 +22,28 @@ def list_df_items(plate_layout: pd.DataFrame) -> list:
     return my_list
 
 def init_logger(level: int) -> None:
-    lg.getLogger().setLevel(level)
+    logger = logging.getLogger('randplate')
+    logger.setLevel(level)
+
+    # create console handler and set level to debug
+    ch = logging.StreamHandler()
+    ch.setLevel(logging.DEBUG)
+
+    # create formatter
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+    # add formatter to ch
+    ch.setFormatter(formatter)
+
+    # add ch to logger
+    logger.addHandler(ch)
+
 
 def log_lvl() -> int:
-    return lg.getLogger().getEffectiveLevel()
+    return logging.getLogger('randplate').getEffectiveLevel()
+
+def get_logger() -> logging.Logger:
+    return logging.getLogger('randplate')
 
 
 
@@ -36,20 +53,21 @@ def gen_single_axis_index_list(num_items: int, goal: float, len_df: int) -> list
     cur_col = 0
     indices_per_row = int(goal)
 
-    lg.debug(f"indices_per_row={indices_per_row}")
+    logging.debug(f"indices_per_row={indices_per_row}")
+    # assign indices_per_row
     for i in range(num_items): # for each row
-        # assign indices_per_row
         for _ in range(indices_per_row):
             indices.append(cur_col)
         cur_col += 1
 
+    # fill up remainder in order
     cur_col = 0
     while (len(indices) < len_df):
         indices.append(cur_col)
         cur_col += 1
 
     random.shuffle(indices)
-
+    logging.debug(f"Generated indices: {indices}")
     return indices
 
 
@@ -74,6 +92,8 @@ def combine_coord_lists(rows: list, cols: list) -> list:
 def split_str_coord(coord: str) -> (int, int):
     #print(f"1={re.search('[A-Z]', coord).group(0)} 2={re.split('[A-Z]', coord)[1]}")
     return (row_as_int(re.search('[A-Z]', coord).group(0)), int(re.split('[A-Z]', coord)[1]))
+
+
 
     
     

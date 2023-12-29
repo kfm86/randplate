@@ -1,8 +1,10 @@
 import pandas as pd
-import logging as lg
+import logging
 import sys
 
 import randplate as rp
+
+lg = logging.getLogger('randplate')
 
 class DrugList:
     """Class to handle reading, parsing, and grouping of a test input file."""
@@ -16,7 +18,7 @@ class DrugList:
             sys.exit()
         self.plate = plate
 
-    def print(self, level: int = lg.DEBUG) -> None:
+    def print(self, level: int = logging.DEBUG) -> None:
         """Print a helpful message"""
         msg = f"\n{rp.utils.print_sep()}\nAssigning drugs:\n{self.drugs}\n{rp.utils.print_sep()}"
         lg.log(level, msg)
