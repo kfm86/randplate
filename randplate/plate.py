@@ -3,6 +3,7 @@ pd.options.mode.chained_assignment = None  # default='warn'
 import logging
 import random as rand
 import time
+import sys
 
 import randplate as rp
 
@@ -30,7 +31,11 @@ class Plate:
         # This could probably be done better/in one step.
         lg.debug(f"Loading plate file: {filename}")
         self.filename = filename
-        self.plate = pd.read_csv(filename, index_col=1, header=None)
+        try:
+            self.plate = pd.read_csv(filename, index_col=1, header=None)
+        except IndexError:
+            lg.error(f"Failed to parse plate file '{filename}'. Please verify the format.")
+            sys.exit(1)
         self.plate = self.plate.pivot(columns=self.plate.columns[1]).loc[:,0]
         row_names = self.plate.index.values
         col_names = self.plate.columns.values
@@ -61,9 +66,12 @@ class Plate:
         # if len(col_indices != self.cols):
         #     raise ValueError("len(col_indices) !+ self.cols")
         for i in drug_group.index:
-            print(f"&&&i={i} rp.utils.row_as_str(drug_group.loc[i,'row']), drug_group.loc[i,'col']:\n{rp.utils.row_as_str(drug_group.loc[i,'row'])},{drug_group.loc[i,'col']}")
-            self.plate.at[rp.utils.row_as_str(drug_group.at[i,'row']), drug_group.at[i,'col']].assigned = True
-            self.plate.at[rp.utils.row_as_str(drug_group.at[i,'row']), drug_group.at[i,'col']].group = group
+            row = rp.utils.row_as_str(drug_group.at[i,'row'])
+            col = drug_group.at[i,'col']
+            print(f"&&&i={i} row={row}, col={col}")
+
+            self.plate.at[row,col].assigned = True
+            self.plate.at[row,col].group = group
         self.print(logging.INFO, True)
     
 
@@ -79,6 +87,7 @@ class Plate:
         ROWS = "row"
         COLS = "col"
         REDO = "redo"
+        POS = "position"
         """Generate the position matrix for the items in a target group."""
         # Generate two lists of integers: indices of row,col. Together they make coordinates.
         # The coordinates will be added to df as a new column: pos
@@ -115,7 +124,7 @@ class Plate:
         df[COLS] = rand.choices(list(range(1, num_cols)), k=len(df))
         while any(df[REDO]):
             # 2.1. for each position, check that there are enough free spaces in that row
-            df['position'] = rp.utils.combine_coord_lists(df[ROWS].to_list(), df[COLS].to_list())
+            df[POS] = rp.utils.combine_coord_lists(df[ROWS].to_list(), df[COLS].to_list())
             touching_positions = []
             for i in df.index:
                 # col = df.loc[i, COLS]
@@ -133,12 +142,12 @@ class Plate:
                 # TODO if pos1 touches pos2, only add pos1, not pos2
                 # TODO check there are enough free wells to achieve this
                 touching = False
-                for pos in df['position']:
-                    if is_touching(pos, df.loc[i,'position']) and pos != df.loc[i,'position'] and df.loc[i,'position'] not in touching_positions and pos not in touching_positions:
-                        lg.debug(f"Positions touching: {pos}-{df.loc[i,'position']} => recalc #{i}/{pos}")
+                for pos in df[POS]:
+                    if is_touching(pos, df.loc[i,POS]) and pos != df.loc[i,POS] and df.loc[i,POS] not in touching_positions and pos not in touching_positions:
+                        lg.debug(f"Positions touching: {pos}-{df.loc[i,POS]} => recalc #{i}/{pos}")
                         touching = True
-                        touching_positions.append(df.loc[i,'position'])
-                print(f"{i}: touching positions = {touching_positions} touching={touching}")
+                        touching_positions.append(df.loc[i,POS])
+                lg.debug(f"{i}: touching positions = {touching_positions}")
                 if touching:
                     df.loc[i, REDO] = True
                     continue
@@ -162,11 +171,10 @@ class Plate:
                 continue # hooray
             elif len(touching_positions) == 1:
                 # need to allow more wells into the list or we get a deadlock
-                print(f"="*80,"\nredoing rows:\n",df[df[REDO]])
+                lg.debug(f"="*80,"\nredoing rows:\n",df[df[REDO]])
                 #print(redo[REDO])
                 #redo = df[df[REDO]]
                 #orig_col = [REDO]
-                print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
                 for i in df[df[REDO]].index:
                     while df.at[i,REDO]:
                         old_val = df.at[i,COLS]
@@ -175,27 +183,20 @@ class Plate:
 
             
             else:
-                print(f"&&& len(touching_positions)={len(touching_positions)}")
+                #print(f"&&& len(touching_positions)={len(touching_positions)}")
+                #print(f"BEFORE:\n{df}")
                 for i in df[df[REDO]].index:
                     old_val = df.loc[i,COLS]
                     df.loc[i,COLS] = int(rand.random() * num_cols)
-                    print(f"i={i}: replaced {old_val} with {df.loc[i,COLS]}")
-
-                #pd.merge(df, redo, how='right', on=COLS)
-                
-
-            print(df)
-
-
+                    lg.debug(f"i={i}: replaced {old_val} with {df.loc[i,COLS]}")
 
             if time.time() - start_time > TIMEOUT:
                 lg.error("Failed to converge on solution. Using current best attempt...")
-                drug_group[ROWS] = df[ROWS]
-                drug_group[COLS] = df[COLS]
                 break
 
-            
-
+        drug_group[ROWS] = df[ROWS]
+        drug_group[COLS] = df[COLS]
+        drug_group[POS] = rp.utils.combine_coord_lists(df[ROWS].to_list(), df[COLS].to_list())
         lg.info(f"Finished group {group_name}...")
 
         #print(f"&&& len(df[ROWS])={len(df[ROWS])} len(df[COLS])={len(df[COLS])}")

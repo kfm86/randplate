@@ -15,7 +15,10 @@ class DrugList:
             self.drugs = pd.read_csv(filename, delimiter=";").sample(frac=1).reset_index(drop=True)
         except OSError as ex:
             lg.error(f"Unable to open file '{filename}':{str(ex)}")
-            sys.exit()
+            sys.exit(1)
+        except IndexError:
+            lg.error(f"Failed to parse test file '{filename}'. Please verify the format.")
+            sys.exit(1)
         self.plate = plate
 
     def print(self, level: int = logging.DEBUG) -> None:
@@ -47,7 +50,9 @@ class DrugList:
         # Start with DNA for ease...
 
         dna_targetting = self.calc_("DNA")
-        #print(dna_targetting)
+
+        #controls = self.calc_("Control")
+        print(dna_targetting)
 
 
         # what to do with results?

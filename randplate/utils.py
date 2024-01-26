@@ -86,7 +86,7 @@ def combine_coord_lists(rows: list, cols: list) -> list:
     
     out = []
     for i in range(len(rows)):
-        out.append(f"{row_as_str(rows[i]+1)}{cols[i]+1:02d}")
+        out.append(f"{row_as_str(rows[i])}{cols[i]:02d}")
     return out
 
 def split_str_coord(coord: str) -> (int, int):
