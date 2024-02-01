@@ -51,8 +51,8 @@ class DrugList:
 
         dna_targetting = self.calc_("DNA")
 
-        #controls = self.calc_("Control")
-        print(dna_targetting)
+        controls = self.calc_("Control")
+        #print(dna_targetting)
 
 
         # what to do with results?

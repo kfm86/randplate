@@ -1,7 +1,7 @@
 import pandas as pd
 pd.options.mode.chained_assignment = None  # default='warn'
 import logging
-import random as rand
+import random
 import time
 import sys
 
@@ -65,13 +65,22 @@ class Plate:
         #     raise ValueError("len(row_indices) != self.rows")
         # if len(col_indices != self.cols):
         #     raise ValueError("len(col_indices) !+ self.cols")
+        lg.debug(f"Storing drug group:{group}\nPositions:")
         for i in drug_group.index:
             row = rp.utils.row_as_str(drug_group.at[i,'row'])
             col = drug_group.at[i,'col']
-            print(f"&&&i={i} row={row}, col={col}")
-
-            self.plate.at[row,col].assigned = True
-            self.plate.at[row,col].group = group
+            #print(drug_group)
+            lg.debug(f"i:{i} row:{row} col:{col}")
+            try:
+                self.plate.at[row,col].assigned = True
+                self.plate.at[row,col].group = group
+            except KeyError as ex:
+                print("!!! ERROR: KeyError CAUGHT !!!")
+                print(f"row:{row} col:{col}")
+                print(self.plate.shape)
+                raise
+            if row == 0 or col == 0:
+                raise RuntimeError(f"ROW={row} COL={col}")
         self.print(logging.INFO, True)
     
 
@@ -101,7 +110,7 @@ class Plate:
         df[REDO] = [True] * len(drug_group)
         while any(df[REDO]):
             # 1.1 get a list of row numbers for each row in df
-            df[ROWS] = rand.choices(list(range(num_rows)), k=len(drug_group))
+            df[ROWS] = random.choices(list(range(num_rows)), k=len(drug_group))
             # 1.2 for each item in list, check that there are enough free spaces in that row
             for i in range(len(df)):
                 row = df[ROWS].iloc[i]
@@ -114,25 +123,19 @@ class Plate:
                     df[REDO].iloc[i] = True
                 else:
                     df[REDO].iloc[i] = False
-            print("Redo:",df[REDO])
+            lg.debug("Redo:",df[REDO])
             #all assigned, need to redo this index.
 
         #col_indices = rp.utils.gen_single_axis_index_list(num_cols, goal[1], len(drug_group))
         start_time = time.time()
         df[REDO] = [True] * len(drug_group)
         # 2. get a list of column numbers 
-        df[COLS] = rand.choices(list(range(1, num_cols)), k=len(df))
+        df[COLS] = random.choices(list(range(1, num_cols)), k=len(df))
         while any(df[REDO]):
             # 2.1. for each position, check that there are enough free spaces in that row
             df[POS] = rp.utils.combine_coord_lists(df[ROWS].to_list(), df[COLS].to_list())
             touching_positions = []
             for i in df.index:
-                # col = df.loc[i, COLS]
-                # num_assigned_to_row = 0
-                # for row in range(num_rows):
-                #     if self.is_assigned(row,col):
-                #         num_assigned_to_row += 1
-                #print(f"{row}: {num_assigned}")
                 #TODO: is this comparison correct?
                 if num_assigned_to_row >= num_rows:
                     lg.debug(f"Too many wells assigned to row {row}: recalc #{i}")
@@ -143,8 +146,16 @@ class Plate:
                 # TODO check there are enough free wells to achieve this
                 touching = False
                 for pos in df[POS]:
-                    if is_touching(pos, df.loc[i,POS]) and pos != df.loc[i,POS] and df.loc[i,POS] not in touching_positions and pos not in touching_positions:
-                        lg.debug(f"Positions touching: {pos}-{df.loc[i,POS]} => recalc #{i}/{pos}")
+                    print(f"pos{pos} df.loc[i,POS]={df.loc[i,POS]}")
+                    if is_touching(pos, df.loc[i,POS]) and pos != df.loc[i,POS] and df.loc[i,POS] not in touching_positions \
+                        and pos not in touching_positions and not self.plate.at[rp.utils.split_str_coord(pos)].assigned:
+                        lg.info(f"Positions touching: {pos}-{df.loc[i,POS]} => recalc #{i}/{pos}")
+                        print((f"{is_touching(pos, df.loc[i,POS])} - {pos != df.loc[i,POS]} - {df.loc[i,POS] not in touching_positions}"
+                               f"{pos not in touching_positions}"))
+                        
+                        
+                        
+                        print(self.plate.at[rp.utils.split_str_coord(pos)].assigned)
                         touching = True
                         touching_positions.append(df.loc[i,POS])
                 lg.debug(f"{i}: touching positions = {touching_positions}")
@@ -153,10 +164,6 @@ class Plate:
                     continue
                 # if we haven't found a reason not to, mark this position as OK
                 df.loc[i, REDO] = False
-
-            #print(df)
-            # print([i for i in redo if i == True])
-            # num_redo = len([i for i in redo if i == True])
 
             # check here for only one well needing redistribution.
             # otherwise, we get into a deadlock where only two touching 
@@ -172,22 +179,17 @@ class Plate:
             elif len(touching_positions) == 1:
                 # need to allow more wells into the list or we get a deadlock
                 lg.debug(f"="*80,"\nredoing rows:\n",df[df[REDO]])
-                #print(redo[REDO])
-                #redo = df[df[REDO]]
-                #orig_col = [REDO]
                 for i in df[df[REDO]].index:
                     while df.at[i,REDO]:
                         old_val = df.at[i,COLS]
-                        df.at[i,COLS] = 1 + int(rand.random() * num_cols)
+                        df.at[i,COLS] = 1 + random.randint(1,num_cols)
                         df.at[i,REDO] = old_val == df.at[i,COLS]
 
             
             else:
-                #print(f"&&& len(touching_positions)={len(touching_positions)}")
-                #print(f"BEFORE:\n{df}")
                 for i in df[df[REDO]].index:
                     old_val = df.loc[i,COLS]
-                    df.loc[i,COLS] = int(rand.random() * num_cols)
+                    df.loc[i,COLS] = random.randint(1,num_cols)
                     lg.debug(f"i={i}: replaced {old_val} with {df.loc[i,COLS]}")
 
             if time.time() - start_time > TIMEOUT:
@@ -226,7 +228,7 @@ class Plate:
                     free_wells.append(self.plate.iloc[row,col])
         if not free_wells:
             raise RuntimeError("No free wells remaining")
-        rand.shuffle(free_wells)
+        random.shuffle(free_wells)
         return free_wells[0].ident
 
         
@@ -265,8 +267,8 @@ def is_touching(pos1: str, pos2: str, dist: int = 1) -> bool:
     #
     if pos1 == pos2:
         return True
-    pos1 = rp.utils.split_str_coord(pos1)
-    pos2 = rp.utils.split_str_coord(pos2)
+    pos1 = rp.utils.coord_as_ints(pos1)
+    pos2 = rp.utils.coord_as_ints(pos2)
 
     rows_dist = abs(pos1[0] - pos2[0])
     cols_dist = abs(pos1[1] - pos2[1])

@@ -91,6 +91,9 @@ def combine_coord_lists(rows: list, cols: list) -> list:
 
 def split_str_coord(coord: str) -> (int, int):
     #print(f"1={re.search('[A-Z]', coord).group(0)} 2={re.split('[A-Z]', coord)[1]}")
+    return (re.search('[A-Z]', coord).group(0), int(re.split('[A-Z]', coord)[1]))
+
+def coord_as_ints(coord: str):
     return (row_as_int(re.search('[A-Z]', coord).group(0)), int(re.split('[A-Z]', coord)[1]))
 
 
