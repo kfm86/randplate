@@ -1,6 +1,7 @@
 import logging
 import random
 import re
+import sys
 
 import pandas as pd
 
@@ -24,19 +25,14 @@ def list_df_items(plate_layout: pd.DataFrame) -> list:
 def init_logger(level: int) -> None:
     logger = logging.getLogger('randplate')
     logger.setLevel(level)
-
-    # create console handler and set level to debug
-    ch = logging.StreamHandler()
+    ch = logging.StreamHandler(sys.stdout)
     ch.setLevel(logging.DEBUG)
-
-    # create formatter
     formatter = logging.Formatter('%(asctime)s(%(levelname)s): %(message)s')
-
-    # add formatter to ch
     ch.setFormatter(formatter)
-
-    # add ch to logger
     logger.addHandler(ch)
+    pd.options.display.width = 1200
+    pd.options.display.max_colwidth = 100
+    pd.options.display.max_columns = 100
 
 
 def log_lvl() -> int:
@@ -95,6 +91,7 @@ def split_str_coord(coord: str) -> (int, int):
 
 def coord_as_ints(coord: str):
     return (row_as_int(re.search('[A-Z]', coord).group(0)), int(re.split('[A-Z]', coord)[1]))
+
 
 
 

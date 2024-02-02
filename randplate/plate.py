@@ -10,6 +10,10 @@ import randplate as rp
 lg = logging.getLogger('randplate')
 
 TIMEOUT = 1
+ROWS = "row"
+COLS = "col"
+REDO = "redo"
+POS = "position"
 
 def well_list(names):
     my_list = []
@@ -93,10 +97,6 @@ class Plate:
     # The generated coordinates are stored in assigned_coords object. 
     # Returns a pd.Dataframe (modified from input df).
     def generate_coordinates(self, drug_group: pd.DataFrame, goal: (float, float), group_name: str) -> pd.DataFrame:
-        ROWS = "row"
-        COLS = "col"
-        REDO = "redo"
-        POS = "position"
         """Generate the position matrix for the items in a target group."""
         # Generate two lists of integers: indices of row,col. Together they make coordinates.
         # The coordinates will be added to df as a new column: pos
@@ -134,6 +134,7 @@ class Plate:
         while any(df[REDO]):
             # 2.1. for each position, check that there are enough free spaces in that row
             df[POS] = rp.utils.combine_coord_lists(df[ROWS].to_list(), df[COLS].to_list())
+            lg.debug(df)
             touching_positions = []
             for i in df.index:
                 #TODO: is this comparison correct?
@@ -141,27 +142,16 @@ class Plate:
                     lg.debug(f"Too many wells assigned to row {row}: recalc #{i}")
                     df.loc[i, REDO] = True
                     continue
-                # 2.3. for each item in list, check it is not touching any of same primary_target
-                # TODO if pos1 touches pos2, only add pos1, not pos2
-                # TODO check there are enough free wells to achieve this
-                touching = False
-                for pos in df[POS]:
-                    print(f"pos{pos} df.loc[i,POS]={df.loc[i,POS]}")
-                    if is_touching(pos, df.loc[i,POS]) and pos != df.loc[i,POS] and df.loc[i,POS] not in touching_positions \
-                        and pos not in touching_positions and not self.plate.at[rp.utils.split_str_coord(pos)].assigned:
-                        lg.info(f"Positions touching: {pos}-{df.loc[i,POS]} => recalc #{i}/{pos}")
-                        print((f"{is_touching(pos, df.loc[i,POS])} - {pos != df.loc[i,POS]} - {df.loc[i,POS] not in touching_positions}"
-                               f"{pos not in touching_positions}"))
-                        
-                        
-                        
-                        print(self.plate.at[rp.utils.split_str_coord(pos)].assigned)
-                        touching = True
-                        touching_positions.append(df.loc[i,POS])
-                lg.debug(f"{i}: touching positions = {touching_positions}")
-                if touching:
-                    df.loc[i, REDO] = True
+                if self.candidate_pos_invalid(df.at[i,POS], df) or self.is_assigned(df.at[i,POS]):
+                    touching_positions.append(df.at[i,POS])
+                    df.at[i,REDO] = True
                     continue
+                # 2.3. for each item in list, check it is not touching any of same primary_target
+                #      and it is not already occupied
+                lg.debug(f"{i}: touching positions = {touching_positions}")
+                # if touching:
+                #     df.loc[i, REDO] = True
+                #     continue
                 # if we haven't found a reason not to, mark this position as OK
                 df.loc[i, REDO] = False
 
@@ -215,7 +205,8 @@ class Plate:
     def is_assigned(self, row: int or str, col: int = None) -> bool:
         """Helper function to show if given well position is assigned."""
         if col is None:
-            return self.plate.loc[row].assigned
+            row, col = rp.utils.split_str_coord(row)
+            return self.plate.at[row,col].assigned
         else:
             return self.plate.iloc[row,col].assigned
         
@@ -231,6 +222,12 @@ class Plate:
         random.shuffle(free_wells)
         return free_wells[0].ident
 
+    def candidate_pos_invalid(self, candidate: str, df: pd.DataFrame) -> bool:
+        touching = False
+        for pos in df[POS]:
+            if _is_touching(candidate, pos):
+                touching = True
+        return touching
         
 
 
@@ -247,7 +244,7 @@ class Plate:
     #                     touching = True
     #     return touching
         
-def is_touching(pos1: str, pos2: str, dist: int = 1) -> bool:
+def _is_touching(pos1: str, pos2: str, dist: int = 1) -> bool:
     """Returns True if the two given positions are within dist wells of each other. Diagonal distances are not considered."""
     #pos1=str(pos1)
     #print(f"pos1='{pos1} pos2={pos2} type(pos1)={type(pos1)} type(pos2)={type(pos2)}")
@@ -266,11 +263,14 @@ def is_touching(pos1: str, pos2: str, dist: int = 1) -> bool:
     # diff_total =    4     2     0     2     3
     #
     if pos1 == pos2:
-        return True
-    pos1 = rp.utils.coord_as_ints(pos1)
-    pos2 = rp.utils.coord_as_ints(pos2)
+        # return False or we have to always guard against checking a position against itself
+        return False
+    pos1n = rp.utils.coord_as_ints(pos1)
+    pos2n = rp.utils.coord_as_ints(pos2)
 
-    rows_dist = abs(pos1[0] - pos2[0])
-    cols_dist = abs(pos1[1] - pos2[1])
+    rows_dist = abs(pos1n[0] - pos2n[0])
+    cols_dist = abs(pos1n[1] - pos2n[1])
     return rows_dist + cols_dist <= dist
+
+
         

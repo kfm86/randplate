@@ -8,7 +8,7 @@ class Coordinates:
         self.plate = plate
         self.rows = self.plate.shape[0]
         self.cols = self.plate.shape[1]
-        self.shape = (self.rows, self.cols)
+        self.shape = self.plate.shape
 
     def store(self, row_indices: list, col_indices: list) -> rp.Plate:
         # if len(row_indices != self.rows):
