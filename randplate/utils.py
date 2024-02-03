@@ -6,13 +6,16 @@ import sys
 import pandas as pd
 
 
-PRINT_HDR_WD=80
+PR_HDR_WD=80
 POS_COL_NAME='pos'
 
 DEBUG=True
 
 def print_sep() -> str:
-    return("="*PRINT_HDR_WD)
+    return("="*PR_HDR_WD)
+
+def debug_header(msg: str) -> None:
+    logging.debug("\n" + "="*PR_HDR_WD + f"\n{msg}\n" + "="*PR_HDR_WD)
 
 def list_df_items(plate_layout: pd.DataFrame) -> list:
     my_list = []

@@ -106,54 +106,55 @@ class Plate:
 
 
         # 1. Copy drug_group dataframe and generate row indices
+        lg.debug("\n" + rp.utils.print_sep() + "\nCalculating row distributions\n" + rp.utils.print_sep())
         df = drug_group
         df[REDO] = [True] * len(drug_group)
         while any(df[REDO]):
             # 1.1 get a list of row numbers for each row in df
             df[ROWS] = random.choices(list(range(num_rows)), k=len(drug_group))
             # 1.2 for each item in list, check that there are enough free spaces in that row
-            for i in range(len(df)):
-                row = df[ROWS].iloc[i]
+            for i in df.index:
+                row = df.at[i, ROWS]
                 num_assigned_to_row = 0
                 for col in range(num_cols):
-                    if self.is_assigned(row,col):
+                    if self.is_assigned(row, col):
                         num_assigned_to_row += 1
                 #print(f"{row}: {num_assigned}")
                 if num_assigned_to_row >= num_cols:
-                    df[REDO].iloc[i] = True
+                    df.at[i, REDO] = True
                 else:
-                    df[REDO].iloc[i] = False
-            lg.debug("Redo:",df[REDO])
+                    df.at[i, REDO] = False
+            redo = [i for i in df.index if df.at[i,REDO]]
+            if redo:
+                lg.debug(f"Redoing indices:\n{redo}")
+            else:
+                lg.debug("Finished")
             #all assigned, need to redo this index.
-
+        
+        lg.debug("\n" + rp.utils.print_sep() + "\nCalculating column distributions\n" + rp.utils.print_sep())
         #col_indices = rp.utils.gen_single_axis_index_list(num_cols, goal[1], len(drug_group))
         start_time = time.time()
         df[REDO] = [True] * len(drug_group)
         # 2. get a list of column numbers 
         df[COLS] = random.choices(list(range(1, num_cols)), k=len(df))
         while any(df[REDO]):
+            lg.debug("Starting loop...")
             # 2.1. for each position, check that there are enough free spaces in that row
             df[POS] = rp.utils.combine_coord_lists(df[ROWS].to_list(), df[COLS].to_list())
-            lg.debug(df)
             touching_positions = []
             for i in df.index:
                 #TODO: is this comparison correct?
                 if num_assigned_to_row >= num_rows:
                     lg.debug(f"Too many wells assigned to row {row}: recalc #{i}")
-                    df.loc[i, REDO] = True
                     continue
-                if self.candidate_pos_invalid(df.at[i,POS], df) or self.is_assigned(df.at[i,POS]):
-                    touching_positions.append(df.at[i,POS])
-                    df.at[i,REDO] = True
+                elif not self.candidate_pos_invalid(df.at[i,POS], df) and not self.is_assigned(df.at[i,POS]):
+                    df.at[i,REDO] = False
                     continue
+                touching_positions.append(df.at[i,POS])
                 # 2.3. for each item in list, check it is not touching any of same primary_target
                 #      and it is not already occupied
-                lg.debug(f"{i}: touching positions = {touching_positions}")
-                # if touching:
-                #     df.loc[i, REDO] = True
-                #     continue
-                # if we haven't found a reason not to, mark this position as OK
-                df.loc[i, REDO] = False
+            
+            lg.debug(f"touching positions:\n{df[df[REDO]][POS]}")
 
             # check here for only one well needing redistribution.
             # otherwise, we get into a deadlock where only two touching 
@@ -162,25 +163,27 @@ class Plate:
             #TODO Check for all columns being the same => same as len()==1
             #redo = df[df[REDO]]
             #print(redo)
-            if len(touching_positions) == 0:
+            num_redo = len(df.select_dtypes(include=['bool']).sum(axis=1, numeric_only=bool))
+            if num_redo == 0:
+                lg.debug("Finished")
                 drug_group[ROWS] = df[ROWS]
                 drug_group[COLS] = df[COLS]
                 continue # hooray
-            elif len(touching_positions) == 1:
+            elif num_redo == 1:
                 # need to allow more wells into the list or we get a deadlock
-                lg.debug(f"="*80,"\nredoing rows:\n",df[df[REDO]])
+                lg.debug(f"="*80,"\nrecalculating:\n",df[df[REDO]])
                 for i in df[df[REDO]].index:
                     while df.at[i,REDO]:
-                        old_val = df.at[i,COLS]
+                        old_col = df.at[i,COLS]
                         df.at[i,COLS] = 1 + random.randint(1,num_cols)
-                        df.at[i,REDO] = old_val == df.at[i,COLS]
-
-            
+                        df.at[i,REDO] = old_col == df.at[i,COLS]
             else:
                 for i in df[df[REDO]].index:
-                    old_val = df.loc[i,COLS]
+                    old_col = df.loc[i,COLS]
+                    old_row = df.loc[i,ROWS]
                     df.loc[i,COLS] = random.randint(1,num_cols)
-                    lg.debug(f"i={i}: replaced {old_val} with {df.loc[i,COLS]}")
+                    df.loc[i,ROWS] = random.randint(1,num_rows)
+                    lg.debug(f"index {i}: replaced col:{old_col}>{df.loc[i,COLS]} row:{old_row}>{df.loc[i,ROWS]}")
 
             if time.time() - start_time > TIMEOUT:
                 lg.error("Failed to converge on solution. Using current best attempt...")
