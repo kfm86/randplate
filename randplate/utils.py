@@ -12,7 +12,7 @@ POS_COL_NAME='pos'
 DEBUG=True
 
 def print_sep() -> str:
-    return("="*PR_HDR_WD)
+    return("\n"+"="*PR_HDR_WD)
 
 def debug_header(msg: str) -> None:
     logging.debug("\n" + "="*PR_HDR_WD + f"\n{msg}\n" + "="*PR_HDR_WD)
@@ -85,7 +85,7 @@ def combine_coord_lists(rows: list, cols: list) -> list:
     
     out = []
     for i in range(len(rows)):
-        out.append(f"{row_as_str(rows[i])}{cols[i]:02d}")
+        out.append(f"{rows[i]}{cols[i]:02d}")
     return out
 
 def split_str_coord(coord: str) -> (int, int):
@@ -94,6 +94,11 @@ def split_str_coord(coord: str) -> (int, int):
 
 def coord_as_ints(coord: str):
     return (row_as_int(re.search('[A-Z]', coord).group(0)), int(re.split('[A-Z]', coord)[1]))
+
+def make_coord(row: str, col: int) -> str:
+    return row + f"{col:02d}"
+
+
 
 
 

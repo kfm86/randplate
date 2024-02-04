@@ -10,9 +10,9 @@ import randplate as rp
 lg = logging.getLogger('randplate')
 
 TIMEOUT = 1
-ROWS = "row"
-COLS = "col"
-REDO = "redo"
+ROW = "row"
+COL = "col"
+TOUCHING = "redo"
 POS = "position"
 
 def well_list(names):
@@ -63,147 +63,223 @@ class Plate:
         msg = f"\n{rp.utils.print_sep()}\nPlate {self.filename}:\n{df}\n[{self.rows} rows x {self.cols} columns]\n{rp.utils.print_sep()}"
         lg.log(level, msg)
 
+
     def store(self, drug_group: pd.DataFrame, group: str) -> None:
         """Store the coordinates obtained from combining the two lists of row and col indices."""
-        # if len(row_indices != self.rows):
-        #     raise ValueError("len(row_indices) != self.rows")
-        # if len(col_indices != self.cols):
-        #     raise ValueError("len(col_indices) !+ self.cols")
-        lg.debug(f"Storing drug group:{group}\nPositions:")
         for i in drug_group.index:
-            row = rp.utils.row_as_str(drug_group.at[i,'row'])
-            col = drug_group.at[i,'col']
-            #print(drug_group)
-            lg.debug(f"i:{i} row:{row} col:{col}")
-            try:
-                self.plate.at[row,col].assigned = True
-                self.plate.at[row,col].group = group
-            except KeyError as ex:
-                print("!!! ERROR: KeyError CAUGHT !!!")
-                print(f"row:{row} col:{col}")
-                print(self.plate.shape)
-                raise
-            if row == 0 or col == 0:
-                raise RuntimeError(f"ROW={row} COL={col}")
+            row = drug_group.at[i, ROW]
+            col = drug_group.at[i, COL]
+            self.plate.at[row,col].assigned = True
+            self.plate.at[row,col].group = group
         self.print(logging.INFO, True)
     
 
-    # assigned_coords -> Plate
-    # df -> dataframe of drugs to position
-    #       for each drug, we need to generate a position on the assigned_coords Plate
-    #       we assume this dataframe has already been randomised, and can therefore assign them
-    #       row and column indices, up to the shape of assigned_coords
-    # goal -> how many each (row,column) should have on average
-    # The generated coordinates are stored in assigned_coords object. 
-    # Returns a pd.Dataframe (modified from input df).
     def generate_coordinates(self, drug_group: pd.DataFrame, goal: (float, float), group_name: str) -> pd.DataFrame:
         """Generate the position matrix for the items in a target group."""
-        # Generate two lists of integers: indices of row,col. Together they make coordinates.
-        # The coordinates will be added to df as a new column: pos
+        df = self.gen_nontouching_coords_(drug_group, group_name)
+        self.store(df, group_name)
+        row_donors, row_recipients = self.get_donor_recipient_lists_(df, goal, group_name, "row")
+        col_donors, col_recipients = self.get_donor_recipient_lists_(df, goal, group_name, "col")
+        lg.debug(f"{rp.utils.print_sep()}\nRow donors:{row_donors}\nRow recipients:{row_recipients}")
+        lg.debug(f"{rp.utils.print_sep()}\nCol donors:{col_donors}\nCol recipients:{col_recipients}")
+        self.store(df, group_name)
 
+
+    def gen_nontouching_coords_(self, drug_group: pd.DataFrame, group_name: str) -> pd.DataFrame:
+        """First step in coordinate generation. Find an initial random distribution of non-touching positions.
+           The number of assigned wells per column/row is probably not correct."""
         num_rows = self.plate.shape[0]
         num_cols = self.plate.shape[1]
-
-
-        # 1. Copy drug_group dataframe and generate row indices
-        lg.debug("\n" + rp.utils.print_sep() + "\nCalculating row distributions\n" + rp.utils.print_sep())
         df = drug_group
-        df[REDO] = [True] * len(drug_group)
-        while any(df[REDO]):
-            # 1.1 get a list of row numbers for each row in df
-            df[ROWS] = random.choices(list(range(num_rows)), k=len(drug_group))
-            # 1.2 for each item in list, check that there are enough free spaces in that row
-            for i in df.index:
-                row = df.at[i, ROWS]
-                num_assigned_to_row = 0
-                for col in range(num_cols):
-                    if self.is_assigned(row, col):
-                        num_assigned_to_row += 1
-                #print(f"{row}: {num_assigned}")
-                if num_assigned_to_row >= num_cols:
-                    df.at[i, REDO] = True
-                else:
-                    df.at[i, REDO] = False
-            redo = [i for i in df.index if df.at[i,REDO]]
-            if redo:
-                lg.debug(f"Redoing indices:\n{redo}")
-            else:
-                lg.debug("Finished")
-            #all assigned, need to redo this index.
-        
-        lg.debug("\n" + rp.utils.print_sep() + "\nCalculating column distributions\n" + rp.utils.print_sep())
-        #col_indices = rp.utils.gen_single_axis_index_list(num_cols, goal[1], len(drug_group))
+
+        lg.debug("\n" + rp.utils.print_sep() + "\nCalculating coordinates \n" + rp.utils.print_sep())
         start_time = time.time()
-        df[REDO] = [True] * len(drug_group)
-        # 2. get a list of column numbers 
-        df[COLS] = random.choices(list(range(1, num_cols)), k=len(df))
-        while any(df[REDO]):
+        df[TOUCHING] = [True] * len(drug_group)
+        df[ROW] = [rp.utils.row_as_str(i) for i in random.choices(list(range(num_rows-1)), k=len(drug_group))]
+        df[COL] = random.choices(list(range(1, num_cols)), k=len(df))
+        while any(df[TOUCHING]):
             lg.debug("Starting loop...")
             # 2.1. for each position, check that there are enough free spaces in that row
-            df[POS] = rp.utils.combine_coord_lists(df[ROWS].to_list(), df[COLS].to_list())
-            touching_positions = []
+            df[POS] = rp.utils.combine_coord_lists(df[ROW].to_list(), df[COL].to_list())
             for i in df.index:
-                #TODO: is this comparison correct?
-                if num_assigned_to_row >= num_rows:
-                    lg.debug(f"Too many wells assigned to row {row}: recalc #{i}")
+                if not self.candidate_pos_invalid(df.at[i, POS], df) and not self.is_assigned(df.at[i, POS]):
+                    df.at[i, TOUCHING] = False
                     continue
-                elif not self.candidate_pos_invalid(df.at[i,POS], df) and not self.is_assigned(df.at[i,POS]):
-                    df.at[i,REDO] = False
-                    continue
-                touching_positions.append(df.at[i,POS])
-                # 2.3. for each item in list, check it is not touching any of same primary_target
-                #      and it is not already occupied
             
-            lg.debug(f"touching positions:\n{df[df[REDO]][POS]}")
-
-            # check here for only one well needing redistribution.
-            # otherwise, we get into a deadlock where only two touching 
-
-            # for the wells that need recalculation, remove them and redistribute
-            #TODO Check for all columns being the same => same as len()==1
-            #redo = df[df[REDO]]
-            #print(redo)
-            num_redo = len(df.select_dtypes(include=['bool']).sum(axis=1, numeric_only=bool))
+            num_redo = len(df[df[TOUCHING]][POS])
+            lg.debug(f"{num_redo} touching positions")
             if num_redo == 0:
                 lg.debug("Finished")
-                drug_group[ROWS] = df[ROWS]
-                drug_group[COLS] = df[COLS]
+                drug_group[ROW] = df[ROW]
+                drug_group[COL] = df[COL]
                 continue # hooray
-            elif num_redo == 1:
-                # need to allow more wells into the list or we get a deadlock
-                lg.debug(f"="*80,"\nrecalculating:\n",df[df[REDO]])
-                for i in df[df[REDO]].index:
-                    while df.at[i,REDO]:
-                        old_col = df.at[i,COLS]
-                        df.at[i,COLS] = 1 + random.randint(1,num_cols)
-                        df.at[i,REDO] = old_col == df.at[i,COLS]
             else:
-                for i in df[df[REDO]].index:
-                    old_col = df.loc[i,COLS]
-                    old_row = df.loc[i,ROWS]
-                    df.loc[i,COLS] = random.randint(1,num_cols)
-                    df.loc[i,ROWS] = random.randint(1,num_rows)
-                    lg.debug(f"index {i}: replaced col:{old_col}>{df.loc[i,COLS]} row:{old_row}>{df.loc[i,ROWS]}")
+                lg.debug(f"{rp.utils.print_sep()}\nrecalculating:\n{df[df[TOUCHING]][POS]}")
+                for i in df[df[TOUCHING]].index:
+                    old_col = df.at[i, COL]
+                    old_row = df.at[i, ROW]
+                    df.at[i, COL] = random.randint(1,num_cols)
+                    df.at[i, ROW] = rp.utils.row_as_str(random.randint(0,num_rows-1))
+                    lg.debug(f"index {i}: replaced col:{old_col}>{df.at[i, COL]} row:{old_row}>{df.at[i, ROW]}")
 
             if time.time() - start_time > TIMEOUT:
                 lg.error("Failed to converge on solution. Using current best attempt...")
                 break
 
-        drug_group[ROWS] = df[ROWS]
-        drug_group[COLS] = df[COLS]
-        drug_group[POS] = rp.utils.combine_coord_lists(df[ROWS].to_list(), df[COLS].to_list())
-        lg.info(f"Finished group {group_name}...")
-
-        #print(f"&&& len(df[ROWS])={len(df[ROWS])} len(df[COLS])={len(df[COLS])}")
-
-        # 3. Combine these to get a single list of coordinates. Add this as a new column to df.
-        #    Store this list in self, so these positions are marked as assigned.
-        positions = rp.utils.combine_coord_lists(df[ROWS].to_list(), df[COLS].to_list())
-        #lg.debug(f"positions[{len(positions)}]: {positions}")
-
-        self.store(drug_group, group_name)
+        drug_group[ROW] = df[ROW]
+        drug_group[COL] = df[COL]
+        drug_group[POS] = rp.utils.combine_coord_lists(df[ROW].to_list(), df[COL].to_list())
+        lg.info(f"Finished assigning free non-touching positions for {group_name}...")
+        lg.debug(f"{rp.utils.print_sep()}\n{drug_group[POS]}")
 
         return drug_group
+    
+
+    def get_donor_recipient_lists_(self, df: pd.DataFrame, goal: (float, float), group_name: str, axis: str) -> (list, list):
+        """Go through the axis (row/col), and try to make each contain as close to goal as possible"""
+        lg.debug((f"{rp.utils.print_sep()}\nRationalising {axis} distributions for group {group_name}\n"
+            f"Goal distribution: {goal}"))
+        if axis != "row" and axis != "col":
+            raise KeyError(f"Invalid axis: {axis}")
+
+
+        num_per_row = self.delta_per_axis(df, axis, goal)
+        donor_indices = []
+        candidate_donor_indices = []
+        recipient_rows = [key for key, val in num_per_row.items() if val < 0]
+        candidate_recipient_rows = []
+        sum_reassign_to = 0
+        for row, delta in num_per_row.items():
+            if delta > 1:
+                sum_row_i_donating = 0
+                for i in df.index:
+                    if df.at[i, axis] == row and sum_row_i_donating < delta-1:
+                        sum_row_i_donating += 1
+                        donor_indices.append(i)
+            elif delta < 0:
+                sum_reassign_to -= delta
+            elif delta == 1:
+                for i in df.index:
+                    if df.at[i, axis] == row:
+                        candidate_donor_indices.append(i)
+            else: # delta == 0
+                for i in df.index:
+                    if df.at[i, axis] == row and row not in candidate_recipient_rows:
+                        candidate_recipient_rows.append(row)
+
+        
+        lg.debug(f"{rp.utils.print_sep()}\nInitial donor indices:{donor_indices} ({len(donor_indices)})\nInitial recipient rows:{recipient_rows} ({sum_reassign_to} free places)")
+        lg.debug(f"Candiate donor indices: {candidate_donor_indices}\nCandidate recipient rows:{candidate_recipient_rows}")
+        while len(donor_indices) < sum_reassign_to:
+            try:
+                new_index = candidate_donor_indices.pop()
+                lg.debug(f"Not enough indices to reassign - add index {new_index}={df.at[new_index,POS]}")
+                donor_indices.append(new_index)
+            except IndexError:
+                lg.info(f"Ran out of donor candidates. Donor indices:{donor_indices}, recipient ros:{recipient_rows}")
+
+
+        while len(donor_indices) > sum_reassign_to:
+            lg.debug(f"Too many indices to reassign - add some to rows with delta==0")
+            try:
+                new_row = candidate_recipient_rows.pop()
+                recipient_rows.append(new_row)
+                sum_reassign_to += num_per_row[new_row]
+            except IndexError:
+                lg.info(f"Ran out of empty spaces. Donor indices:{donor_indices}, recipient ros:{recipient_rows}")
+        lg.debug(f"Donor indices:{donor_indices} positions:{[df.at[i,POS] for i in donor_indices]}")
+        return donor_indices, recipient_rows
+
+
+    def redistribute_donors(self, donor_inidices, recipient_rows, axis, goal, df):
+        for i in donor_inidices:
+            print (f"index={i} pos={df.at[i,POS]}")
+            placed = False
+            start_time = time.time()
+            """
+            This is getting stuck because it doesn't work.
+            It doesn't change the column so if none of the candidate positions are ok, it never gets solved
+            Also, if it is touching itself, it fails eg moving A01=>B01
+            """
+            while not placed:
+                print(recipient_rows)
+                new_row = random.choice(recipient_rows)
+                new_pos = rp.utils.make_coord(new_row, df.at[i, COL])
+                print(f"Try new row:{new_row} position:{new_pos}")
+                if not self.candidate_pos_invalid(new_pos, df):
+                    df.at[i, axis] = new_row
+                    df.at[i, POS] = rp.utils.make_coord(df.at[i, axis], df.at[i, COL])
+                    num_per_row = self.delta_per_axis(df, axis, goal)
+                    recipient_rows = [key for key, val in num_per_row.items() if val < 0]
+                    print(f"Recipient rows:{recipient_rows}")
+                    if num_per_row[new_row] <= 0:
+                        lg.debug(f"Row {new_row} is now full")
+                    placed = True
+                elif time.time() - start_time > .2:
+                    print(f"!!! Failed to converge on solution !!!")
+                    print("Using current best attempt...")
+                    break
+        # num_per_col = {}
+        # for i in range(1, self.plate.shape[1]):
+        #     num_per_col[i] = 0
+        # for i in df.index:
+        #     col = df.at[i, COL]
+        #     if col in num_per_col.keys():
+        #         num_per_col[col] += 1
+        #     else:
+        #         num_per_col[col] = 1
+        # lg.debug(f"num per col: {num_per_col}")
+        # for col, count in num_per_col.items():
+        #     if int(goal[1]) > count or count  > int(goal[1]) + 1:
+        #         print(f"Need to redo col {col}")
+
+        return df
+                
+
+
+
+
+    def delta_per_axis(self, df: pd.DataFrame, axis: str, goal: (float, float)) -> {str or int, int}:
+        """Count the number of assigned positions in df per row or column.
+           The value per row/column is the delta away from the goal amount
+           ie val<0 means there are not enough assigned, val>1 means there are too many.
+           If goal[axis] = 1.5, it is acceptable to have either 1 or 2 assigned per row/column"""
+        
+        #print(f">>>shape={self.plate.shape}")
+        
+        if axis == "row":
+            shape_i = 0
+        elif axis == "col":
+            shape_i = 1
+        else:
+            raise KeyError(f"Unknown axis: {axis}")
+        goal = goal[shape_i]
+        num_per_axis = {}
+        for i in range(self.plate.shape[shape_i]):
+            if axis == "row":
+                num_per_axis[rp.utils.row_as_str(i)] = -int(goal)
+            else:
+                num_per_axis[i] = -int(goal)
+
+        lg.debug(f"Delta per row: {num_per_axis}")
+
+        for i in df.index:
+            row = df.at[i, axis]
+            if axis == "col":
+                row = row-1
+                print(type(row))
+            num_per_axis[row] += 1
+
+        #lg.debug(f"num per row: {num_per_axis}")
+        # randomise order
+        l = list(num_per_axis.items())
+        random.shuffle(l)
+        num_per_axis = dict(l)
+        for key,val in num_per_axis.items():
+            num_per_axis[key] = val 
+        lg.debug(f"num per row: {num_per_axis}")
+        return num_per_axis
+
 
     def is_assigned(self, row: int or str, col: int = None) -> bool:
         """Helper function to show if given well position is assigned."""
@@ -218,7 +294,8 @@ class Plate:
         free_wells = []
         for row in self.plate.shape[0]:
             for col in self.plate.shape[1]:
-                if not self.plate.iloc[row,col].is_assigned():
+                print(f"TEST {row} {col}")
+                if not self.is_assigned(row, col):
                     free_wells.append(self.plate.iloc[row,col])
         if not free_wells:
             raise RuntimeError("No free wells remaining")
@@ -233,22 +310,10 @@ class Plate:
         return touching
         
 
-
-
-    # def is_touching(self, group: str, row: int, col: int, dist: int = 1) -> bool:
-    #     """Returns true if any positions are within {dist=1} wells of already assigned well with same primary target"""
-    #     touching = False
-    #     for r1 in range(row-dist,row+dist):
-    #         for c1 in range(col-dist, col+dist):
-    #             distance = self.plate.iloc[row,col].distance(r1, c1)
-    #             #print(f"{r1},{c1}:{distance}/{self.plate.iloc[r1,c1].group}")
-    #             if distance[0] > dist or distance[1] > dist:
-    #                 if self.plate.iloc[r1,c1].group == group:
-    #                     touching = True
-    #     return touching
-        
-def _is_touching(pos1: str, pos2: str, dist: int = 1) -> bool:
-    """Returns True if the two given positions are within dist wells of each other. Diagonal distances are not considered."""
+def _is_touching(pos1: str, pos2: str, dist_limit: int = 1) -> bool:
+    """Returns True if the two given positions are within dist wells of each other. 
+    Diagonal distances are not considered.
+    If the positions are the same, False is returned."""
     #pos1=str(pos1)
     #print(f"pos1='{pos1} pos2={pos2} type(pos1)={type(pos1)} type(pos2)={type(pos2)}")
     #
@@ -273,7 +338,7 @@ def _is_touching(pos1: str, pos2: str, dist: int = 1) -> bool:
 
     rows_dist = abs(pos1n[0] - pos2n[0])
     cols_dist = abs(pos1n[1] - pos2n[1])
-    return rows_dist + cols_dist <= dist
+    return rows_dist + cols_dist <= dist_limit
 
 
         
