@@ -78,11 +78,27 @@ class Plate:
         """Generate the position matrix for the items in a target group."""
         df = self.gen_nontouching_coords_(drug_group, group_name)
         self.store(df, group_name)
-        row_donors, row_recipients = self.get_donor_recipient_lists_(df, goal, group_name, "row")
-        col_donors, col_recipients = self.get_donor_recipient_lists_(df, goal, group_name, "col")
-        lg.debug(f"{rp.utils.print_sep()}\nRow donors:{row_donors}\nRow recipients:{row_recipients}")
-        lg.debug(f"{rp.utils.print_sep()}\nCol donors:{col_donors}\nCol recipients:{col_recipients}")
+        row_donor_indices, row_recipients = self.get_donor_recipient_lists_(df, goal, group_name, "row")
+        col_donor_indices, col_recipients = self.get_donor_recipient_lists_(df, goal, group_name, "col")
+        lg.debug(f"{rp.utils.print_sep()}\nRow donors:{row_donor_indices}\nRow recipients:{row_recipients}")
+        lg.debug(f"{rp.utils.print_sep()}\nCol donors:{col_donor_indices}\nCol recipients:{col_recipients}")
+        recipient_positions = self.combine_donor_recipient_coords(row_donor_indices, row_recipients, col_donor_indices, col_recipients)
         self.store(df, group_name)
+
+
+
+    def combine_donor_recipient_coords(self, row_donor_indices: list, row_recipients: list, col_donor_indices: list, col_recipients: list) -> list:
+        """Combine the generated lists of row/col recipients to get a list of new positions"""
+        recipient_positions = []
+        num_rows = len(row_recipients)
+        num_cols = len(col_recipients)
+        init_len = min(num_rows, num_cols)
+        
+        for i in range(init_len):
+            recipient_positions.append(rp.utils.make_coord(row_recipients[i], col_recipients[i]))
+        lg.debug(f"\nRecipient positions = {recipient_positions}")
+
+
 
 
     def gen_nontouching_coords_(self, drug_group: pd.DataFrame, group_name: str) -> pd.DataFrame:
@@ -130,7 +146,7 @@ class Plate:
         drug_group[COL] = df[COL]
         drug_group[POS] = rp.utils.combine_coord_lists(df[ROW].to_list(), df[COL].to_list())
         lg.info(f"Finished assigning free non-touching positions for {group_name}...")
-        lg.debug(f"{rp.utils.print_sep()}\n{drug_group[POS]}")
+        lg.debug(f"{rp.utils.print_sep()}\n{drug_group[[ROW, COL, POS]]}")
 
         return drug_group
     
@@ -146,9 +162,14 @@ class Plate:
         num_per_row = self.delta_per_axis(df, axis, goal)
         donor_indices = []
         candidate_donor_indices = []
-        recipient_rows = [key for key, val in num_per_row.items() if val < 0]
+        recipient_rows = []
         candidate_recipient_rows = []
         sum_reassign_to = 0
+
+
+        #TODO the final recipient list needs to have one entry for each open posiiton
+        # ie if delta == -2, we should add it twice
+
         for row, delta in num_per_row.items():
             if delta > 1:
                 sum_row_i_donating = 0
@@ -156,12 +177,14 @@ class Plate:
                     if df.at[i, axis] == row and sum_row_i_donating < delta-1:
                         sum_row_i_donating += 1
                         donor_indices.append(i)
-            elif delta < 0:
-                sum_reassign_to -= delta
             elif delta == 1:
                 for i in df.index:
                     if df.at[i, axis] == row:
                         candidate_donor_indices.append(i)
+            elif delta < 0:
+                for _ in range(-delta):
+                    recipient_rows.append(row)
+                    sum_reassign_to -= delta
             else: # delta == 0
                 for i in df.index:
                     if df.at[i, axis] == row and row not in candidate_recipient_rows:
@@ -253,32 +276,30 @@ class Plate:
             shape_i = 1
         else:
             raise KeyError(f"Unknown axis: {axis}")
+        print(f"shape_i={shape_i} shape={self.plate.shape[shape_i]}")
         goal = goal[shape_i]
-        num_per_axis = {}
-        for i in range(self.plate.shape[shape_i]):
+        delta_per_axis = {}
+        for i in range(shape_i, self.plate.shape[shape_i]+shape_i):
             if axis == "row":
-                num_per_axis[rp.utils.row_as_str(i)] = -int(goal)
+                delta_per_axis[rp.utils.row_as_str(i)] = -int(goal)
             else:
-                num_per_axis[i] = -int(goal)
-
-        lg.debug(f"Delta per row: {num_per_axis}")
+                delta_per_axis[i] = -int(goal)
 
         for i in df.index:
             row = df.at[i, axis]
-            if axis == "col":
-                row = row-1
-                print(type(row))
-            num_per_axis[row] += 1
+            # if axis == "col":
+            #     row = row-1
+            delta_per_axis[row] += 1
 
         #lg.debug(f"num per row: {num_per_axis}")
         # randomise order
-        l = list(num_per_axis.items())
+        l = list(delta_per_axis.items())
         random.shuffle(l)
-        num_per_axis = dict(l)
-        for key,val in num_per_axis.items():
-            num_per_axis[key] = val 
-        lg.debug(f"num per row: {num_per_axis}")
-        return num_per_axis
+        delta_per_axis = dict(l)
+        for key,val in delta_per_axis.items():
+            delta_per_axis[key] = val 
+        lg.debug(f"num per row: {delta_per_axis}")
+        return delta_per_axis
 
 
     def is_assigned(self, row: int or str, col: int = None) -> bool:
@@ -305,17 +326,14 @@ class Plate:
     def candidate_pos_invalid(self, candidate: str, df: pd.DataFrame) -> bool:
         touching = False
         for pos in df[POS]:
-            if _is_touching(candidate, pos):
+            if _is_touching(candidate, pos) and candidate != pos:
                 touching = True
         return touching
         
 
 def _is_touching(pos1: str, pos2: str, dist_limit: int = 1) -> bool:
     """Returns True if the two given positions are within dist wells of each other. 
-    Diagonal distances are not considered.
-    If the positions are the same, False is returned."""
-    #pos1=str(pos1)
-    #print(f"pos1='{pos1} pos2={pos2} type(pos1)={type(pos1)} type(pos2)={type(pos2)}")
+    Diagonal distances are not considered."""
     #
     # 4   4 3 2 3
     # 3   3 2 1 2
@@ -330,9 +348,6 @@ def _is_touching(pos1: str, pos2: str, dist_limit: int = 1) -> bool:
     #  diff_coor = (2,2) (1,1) (0,0) (1,1) (1,2)
     # diff_total =    4     2     0     2     3
     #
-    if pos1 == pos2:
-        # return False or we have to always guard against checking a position against itself
-        return False
     pos1n = rp.utils.coord_as_ints(pos1)
     pos2n = rp.utils.coord_as_ints(pos2)
 
